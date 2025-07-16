@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getLocale, setLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages.js';
+	import { m } from '$lib/paraglide/messages';
 </script>
 
 <article class="text-center p-8 space-y-4">
