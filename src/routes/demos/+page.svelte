@@ -1,1 +1,1 @@
-<a href="/demo/paraglide">paraglide</a>
+<a href="/demos/paraglide">paraglide</a>
