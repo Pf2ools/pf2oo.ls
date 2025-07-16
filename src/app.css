@@ -1,11 +1,10 @@
 @import "tailwindcss";
+
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-// Override-able styles, ex. a component with base:bg-red-500 and a class property of bg-blue-500.
-// The bg-blue-500 will win every time over base:bg-red-500.
-@custom-variant base {
-  @layer base {
-    @slot;
-  }
-}
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton/optional/presets';
+@import '@skeletonlabs/skeleton/themes/vintage';
+
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
