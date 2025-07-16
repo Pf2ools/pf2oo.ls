@@ -1,3 +1,11 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+// Override-able styles, ex. a component with base:bg-red-500 and a class property of bg-blue-500.
+// The bg-blue-500 will win every time over base:bg-red-500.
+@custom-variant base {
+  @layer base {
+    @slot;
+  }
+}
