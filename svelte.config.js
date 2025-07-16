@@ -10,6 +10,9 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
+		alias: {
+			$triplit: "triplit/*"
+		},
 		adapter: multiAdapter([
 			staticAdapter(),
 			nodeAdapter()
