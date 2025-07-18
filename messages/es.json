@@ -1,4 +1,10 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hola, {name} en Español!"
+	"hello_world": "Hola, {name} en Español!",
+	"pages": {
+		"background": "Orígenes"
+	},
+	"pageLabels": {
+		"background": "Explorar orígenes"
+	}
 }

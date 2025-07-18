@@ -1,4 +1,10 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Cześć, {name} po Polsku!"
+	"hello_world": "Cześć, {name} po Polsku!",
+	"pages": {
+		"background": "Pochodzenia"
+	},
+	"pageLabels": {
+		"background": "Przeglądaj pochodzenia"
+	}
 }

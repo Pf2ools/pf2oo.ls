@@ -4,6 +4,8 @@
 
 	db.load("background");
 	const data = useQuery(db.triplit, db.triplit.query("background"));
+
+	$inspect(data.results?.[0]);
 </script>
 
 {#if data.fetching}
@@ -13,7 +15,7 @@
 {:else if data.results}
 	<div>
 		{#each data.results as bg}
-			<div>{bg.name.primary}</div>
+			<div>{bg.name.primary} - {bg.source.ID}</div>
 		{/each}
 	</div>
 {/if}

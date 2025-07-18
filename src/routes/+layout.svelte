@@ -2,13 +2,16 @@
 	import type { Component } from "svelte";
 	import { dev } from "$app/environment";
 	import { page } from "$app/state";
-	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, MenuIcon, SettingsIcon, VideoIcon } from "@lucide/svelte";
+	import { m } from "$lib/paraglide/messages";
+	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
+	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
+	import { PersistedState } from "runed";
 	import "../app.css";
 
 	const { children } = $props();
 
-	let isExpanded = $state(false);
+	const isExpanded = new PersistedState("isExpanded", false);
 
 	type Link = {
 		label: string;
@@ -17,10 +20,15 @@
 		labelExpanded: string;
 	};
 	const links: Link[] = [
-		{ label: "Backgrounds", href: "/backgrounds", icon: BookUserIcon, labelExpanded: "Browse Backgrounds" },
+		{
+			href: "/backgrounds",
+			icon: BookUserIcon,
+			label: m["pages.background"](),
+			labelExpanded: m["pageLabels.background"](),
+		},
 	];
 	if (dev) {
-		links.push({ label: "Demos", href: "/demos", icon: FolderCodeIcon, labelExpanded: "Browse Demos" });
+		links.push({ label: "Demos", href: "/demos", icon: FolderCodeIcon, labelExpanded: "Browse demos" });
 	}
 </script>
 
@@ -33,15 +41,16 @@
 		lg:grid-cols-[auto_1fr_auto]
 	">
 		<!-- Sidebar (Left) -->
-		<Navigation.Rail expanded={isExpanded}>
+		<Navigation.Rail expanded={isExpanded.current} classes="transition-[width]">
 			{#snippet header()}
-				<Navigation.Tile title="Menu" onclick={() => { isExpanded = !isExpanded; }}>
+				<Navigation.Tile title="Menu" labelExpanded="Shrink Menu" onclick={() => { isExpanded.current = !isExpanded.current; }}>
 					<MenuIcon />
 				</Navigation.Tile>
 			{/snippet}
 			{#snippet tiles()}
 				{#each links as { label, href, labelExpanded, icon: Icon }}
 					<Navigation.Tile
+						classes="flex-col justify-center h-24"
 						{label}
 						{href}
 						{labelExpanded}
@@ -56,6 +65,11 @@
 				{/each}
 			{/snippet}
 			{#snippet footer()}
+				<select class="select" value={getLocale()} onchange={(ev) => setLocale(ev.currentTarget.value as typeof locales[number])}>
+					<option value="en">EN</option>
+					<option value="es">ES</option>
+					<option value="pl">PL</option>
+				</select>
 				<Navigation.Tile labelExpanded="Settings" href="#settings" title="settings">
 					<SettingsIcon />
 				</Navigation.Tile>

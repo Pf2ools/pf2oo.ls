@@ -1,3 +1,4 @@
+/* eslint-disable antfu/no-top-level-await */
 import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
@@ -12,28 +13,49 @@ class Database {
 		storage: "indexeddb",
 	});
 
-	dataKeys = ["background", "source"] as const;
-	loadedKeys: Set<typeof this.dataKeys[number]> = new Set();
+	dataKeys = ["background"] as const;
 
-	constructor() {
+	constructor() {}
 
+	async loadSources() {
+		const data = await (await fetch(`/data/bundles/byDatatype/core/source.json`)).json();
+		// eslint-disable-next-line no-console
+		console.log(`Loading source data...`);
+		await this.triplit.transact(async (tx) => {
+			for (const d of data.source) {
+				try {
+					await tx.insert("source", { ...d, id: d.ID });
+				}
+				catch (_) {
+					console.error(_, d);
+				}
+			}
+		});
+
+		return true;
 	}
 
 	async load(type: typeof this.dataKeys[number]) {
-		if (this.loadedKeys.has(type)) return "alreadyLoaded";
-
 		const data = await (await fetch(`/data/bundles/byDatatype/core/${type}.json`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
 		await this.triplit.transact(async (tx) => {
 			for (const d of data[type]) {
-				await tx.insert(type, {...d, id: `${d.name.primary}_${d.source.ID}`});
+				try {
+					await tx.insert(type, { ...d, id: `${d.name.primary}_${d.source.ID}` });
+				}
+				catch (_) {
+					console.error(_, d);
+				}
 			}
 		});
-		this.loadedKeys.add(type);
 
 		return true;
 	}
 }
 
-export const db = new Database();
+const db = new Database();
+
+await db.loadSources();
+
+export { db };
