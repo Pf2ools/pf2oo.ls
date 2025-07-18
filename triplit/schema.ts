@@ -16,8 +16,8 @@ export const schema = S.Collections({
 			}),
 		}),
 		relationships: {
-			background: S.RelationMany("background", {
-				where: [["source.id", "=", "$background.source.ID"]],
+			backgrounds: S.RelationMany("background", {
+				where: [["source.ID", "=", "$id"]],
 			}),
 		},
 	},
@@ -33,8 +33,8 @@ export const schema = S.Collections({
 			}),
 		}),
 		relationships: {
-			source: S.RelationOne("source", {
-				where: [["background.source.ID", "=", "$id"]],
+			src: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
 			}),
 		},
 	},

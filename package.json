@@ -16,6 +16,9 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run"
 	},
+	"dependencies": {
+		"pf2ools-schema": "https://github.com/Pf2ools/pf2ools-schema"
+	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^4.17.0",
 		"@eslint/compat": "^1.2.5",
@@ -54,8 +57,5 @@
 		"vitest": "^3.2.3",
 		"vitest-browser-svelte": "^0.1.0",
 		"zod": "^4.0.5"
-	},
-	"dependencies": {
-		"pf2ools-schema": "https://github.com/Pf2ools/pf2ools-schema"
 	}
 }

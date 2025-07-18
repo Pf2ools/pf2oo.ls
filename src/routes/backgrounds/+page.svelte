@@ -3,7 +3,7 @@
 	import { useQuery } from "@triplit/svelte";
 
 	db.load("background");
-	const data = useQuery(db.triplit, db.triplit.query("background"));
+	const data = useQuery(db.triplit, db.triplit.query("background").Include("src"));
 
 	$inspect(data.results?.[0]);
 </script>
@@ -15,7 +15,9 @@
 {:else if data.results}
 	<div>
 		{#each data.results as bg}
-			<div>{bg.name.primary} - {bg.source.ID}</div>
+			<div>
+				{bg.name.primary} - {bg.source.ID} - {bg.src?.title.full}
+			</div>
 		{/each}
 	</div>
 {/if}
