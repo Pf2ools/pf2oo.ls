@@ -14,8 +14,8 @@ const config = {
 			$triplit: "triplit/*"
 		},
 		adapter: multiAdapter([
-			staticAdapter(),
-			nodeAdapter()
+			staticAdapter({}),
+			nodeAdapter({ out: "build/_node" })
 		]),
 	}
 };
