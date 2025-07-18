@@ -1,11 +1,8 @@
 <script lang="ts">
+	import type { Component } from "svelte";
+	import { dev } from "$app/environment";
 	import { page } from "$app/state";
-	import IconFolder from "@lucide/svelte/icons/folder";
-	import IconImage from "@lucide/svelte/icons/image";
-	import IconMenu from "@lucide/svelte/icons/menu";
-	import IconMusic from "@lucide/svelte/icons/music";
-	import IconSettings from "@lucide/svelte/icons/settings";
-	import IconVideo from "@lucide/svelte/icons/video";
+	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, MenuIcon, SettingsIcon, VideoIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
 	import "../app.css";
 
@@ -13,12 +10,18 @@
 
 	let isExpanded = $state(false);
 
-	const links = [
-		{ label: "Files", href: "#/files", icon: IconFolder, labelExpanded: "Browse Files" },
-		{ label: "Images", href: "#/images", icon: IconImage, labelExpanded: "Browse Images" },
-		{ label: "Music", href: "#/music", icon: IconMusic, labelExpanded: "Browse Music" },
-		{ label: "Videos", href: "#/videos", icon: IconVideo, labelExpanded: "Browse Videos" },
+	type Link = {
+		label: string;
+		href: string;
+		icon?: Component;
+		labelExpanded: string;
+	};
+	const links: Link[] = [
+		{ label: "Backgrounds", href: "/backgrounds", icon: BookUserIcon, labelExpanded: "Browse Backgrounds" },
 	];
+	if (dev) {
+		links.push({ label: "Demos", href: "/demos", icon: FolderCodeIcon, labelExpanded: "Browse Demos" });
+	}
 </script>
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
@@ -32,7 +35,9 @@
 		<!-- Sidebar (Left) -->
 		<Navigation.Rail expanded={isExpanded}>
 			{#snippet header()}
-				<Navigation.Tile title="Menu" onclick={() => {isExpanded = !isExpanded}}><IconMenu /></Navigation.Tile>
+				<Navigation.Tile title="Menu" onclick={() => { isExpanded = !isExpanded; }}>
+					<MenuIcon />
+				</Navigation.Tile>
 			{/snippet}
 			{#snippet tiles()}
 				{#each links as { label, href, labelExpanded, icon: Icon }}
@@ -40,22 +45,28 @@
 						{label}
 						{href}
 						{labelExpanded}
-						selected={page.url.pathname === href}
+						selected={page.url.pathname.includes(href)}
 					>
-						<Icon></Icon>
+						{#if Icon}
+							<Icon></Icon>
+						{:else}
+							<EllipsisIcon />
+						{/if}
 					</Navigation.Tile>
 				{/each}
 			{/snippet}
 			{#snippet footer()}
-				<Navigation.Tile labelExpanded="Settings" href="#settings" title="settings"><IconSettings /></Navigation.Tile>
+				<Navigation.Tile labelExpanded="Settings" href="#settings" title="settings">
+					<SettingsIcon />
+				</Navigation.Tile>
 			{/snippet}
 		</Navigation.Rail>
 		<!-- Main -->
-		<main class="p-4 bg-green-600">
+		<main class="p-4 h-[calc(100dvh-3.5rem)] overflow-y-auto">
 			{@render children()}
 		</main>
 		<!-- Sidebar (Right) -->
-		<aside class="bg-yellow-500 p-2 hidden">
+		<aside class="p-2 hidden">
 			(sidebar)
 		</aside>
 	</div>
