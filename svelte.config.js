@@ -1,7 +1,7 @@
-import staticAdapter from '@sveltejs/adapter-static'
-import nodeAdapter from '@sveltejs/adapter-node'
-import multiAdapter from '@macfja/svelte-multi-adapter'
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import multiAdapter from "@macfja/svelte-multi-adapter";
+import nodeAdapter from "@sveltejs/adapter-node";
+import staticAdapter from "@sveltejs/adapter-static";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,13 +11,13 @@ const config = {
 
 	kit: {
 		alias: {
-			$triplit: "triplit/*"
+			$triplit: "triplit/*",
 		},
 		adapter: multiAdapter([
 			staticAdapter({}),
-			nodeAdapter({ out: "build/_node" })
+			nodeAdapter({ out: "build/_node" }),
 		]),
-	}
+	},
 };
 
 export default config;
