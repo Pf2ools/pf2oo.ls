@@ -9,6 +9,15 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 
+	compilerOptions: {
+		modernAst: true,
+		discloseVersion: true,
+		runes: true,
+		experimental: {
+			async: true,
+		},
+	},
+
 	kit: {
 		alias: {
 			$triplit: "triplit/*",
