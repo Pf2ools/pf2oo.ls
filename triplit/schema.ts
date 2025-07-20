@@ -33,7 +33,7 @@ export const schema = S.Collections({
 			}),
 		}),
 		relationships: {
-			src: S.RelationOne("source", {
+			sourceData: S.RelationOne("source", {
 				where: [["id", "=", "$source.ID"]],
 			}),
 		},
