@@ -37,8 +37,7 @@
 	<header class="bg-red-500 p-4 h-14">(header)</header>
 	<!-- Grid Column -->
 	<div class="
-		grid grid-cols-1
-		lg:grid-cols-[auto_1fr_auto]
+		grid grid-cols-[auto_1fr_auto]
 	">
 		<!-- Sidebar (Left) -->
 		<Navigation.Rail expanded={isExpanded.current} classes="transition-[width]">
