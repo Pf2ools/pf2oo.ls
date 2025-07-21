@@ -1,4 +1,5 @@
 /* eslint-disable antfu/no-top-level-await */
+import { browser } from "$app/environment";
 import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
@@ -10,7 +11,7 @@ class Database {
 		// token: PUBLIC_TRIPLIT_TOKEN,
 		autoConnect: false, // browser,
 		schema,
-		storage: "indexeddb",
+		storage: browser ? "indexeddb" : "memory",
 		/* experimental: {
 			onDatabaseInit: console.log,
 		}, */
@@ -44,7 +45,7 @@ class Database {
 	/**
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
-	async load(type: typeof this.dataKeys[number]) {
+	async load(type: typeof this.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
 		const data = await (await fetch(`/data/bundles/byDatatype/core/${type}.json`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
