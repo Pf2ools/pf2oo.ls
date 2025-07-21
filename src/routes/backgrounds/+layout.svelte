@@ -5,7 +5,6 @@
 
 	const { children } = $props();
 
-	db.load("background");
 	const data = useQuery(db.triplit, db.triplit.query("background").Include("sourceData"));
 
 	$inspect(data.results?.[0]);
@@ -20,6 +19,7 @@
 		{:else if data.results}
 			<div>
 				{#each data.results as bg}
+					<!-- svelte-ignore a11y_autofocus -->
 					<div class="hover:bg-amber-500/25" autofocus={page.params.bg === bg.id}>
 						<a href={`/backgrounds/${bg.id}`}>
 							{bg.name.primary} - {bg.source.ID} - {bg.sourceData?.title.full}
