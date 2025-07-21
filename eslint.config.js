@@ -14,7 +14,7 @@ export default antfu({
 	rules: {
 		"antfu/if-newline": "off",
 		"no-unused-vars": "off",
-		"style/arrow-parens": ["error", "always"]
+		"style/arrow-parens": ["error", "always"],
 	},
 }, {
 	files: ["src/**/*.svelte"],
