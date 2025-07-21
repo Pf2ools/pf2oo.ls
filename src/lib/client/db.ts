@@ -1,4 +1,3 @@
-/* eslint-disable antfu/no-top-level-await */
 import { browser } from "$app/environment";
 import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
@@ -17,6 +16,8 @@ class Database {
 		}, */
 	});
 
+	idBuilder = (name: string, source: string): string => `${name}_${source}`;
+
 	dataKeys = ["background"] as const;
 
 	constructor() {}
@@ -24,8 +25,8 @@ class Database {
 	/**
 	 * As .load but specifically for book sources, due to their slightly different schema.
 	 */
-	async loadSources() {
-		const data = await (await fetch(`/data/bundles/byDatatype/core/source.json`)).json();
+	async loadSources(fetch: typeof globalThis.fetch = globalThis.fetch) {
+		const data = await (await fetch(`/assets/source`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading source data...`);
 		await this.triplit.transact(async (tx) => {
@@ -46,13 +47,13 @@ class Database {
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
 	async load(type: typeof this.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
-		const data = await (await fetch(`/data/bundles/byDatatype/core/${type}.json`)).json();
+		const data = await (await fetch(`/assets/${type}`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
 		await this.triplit.transact(async (tx) => {
 			for (const d of data[type]) {
 				try {
-					await tx.insert(type, { ...d, id: `${d.name.primary}_${d.source.ID}` });
+					await tx.insert(type, { ...d, id: this.idBuilder(d.name.primary, d.source.ID) });
 				}
 				catch (_) {
 					console.error(_, d);
@@ -65,7 +66,5 @@ class Database {
 }
 
 const db = new Database();
-
-await db.loadSources();
 
 export { db };
