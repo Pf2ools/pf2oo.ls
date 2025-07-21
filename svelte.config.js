@@ -23,7 +23,7 @@ const config = {
 			$triplit: "triplit/*",
 		},
 		adapter: multiAdapter([
-			staticAdapter({}),
+			staticAdapter({	fallback: "200.html" }),
 			nodeAdapter({ out: "build/_node" }),
 		]),
 	},
