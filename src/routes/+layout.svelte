@@ -69,7 +69,7 @@
 					<option value="es">ES</option>
 					<option value="pl">PL</option>
 				</select>
-				<Navigation.Tile labelExpanded="Settings" href="#settings" title="settings">
+				<Navigation.Tile labelExpanded="Settings" title="settings">
 					<SettingsIcon />
 				</Navigation.Tile>
 			{/snippet}
