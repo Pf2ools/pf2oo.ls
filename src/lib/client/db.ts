@@ -16,7 +16,10 @@ export class Database {
 		}, */
 	});
 
-	static idBuilder = (name: string, source: string): string => `${name}_${source}`;
+	static idBuilder = (name: string | { primary: string; specifier: string }, source: string): string =>
+		typeof name === "string"
+			? `${name}_${source}`
+			: `${name.primary}${name.specifier ? `_${name.specifier}` : ""}_${source}`;
 
 	dataKeys = ["background"] as const;
 
@@ -53,7 +56,7 @@ export class Database {
 		await this.triplit.transact(async (tx) => {
 			for (const d of data[type]) {
 				try {
-					await tx.insert(type, { ...d, id: Database.idBuilder(d.name.primary, d.source.ID) });
+					await tx.insert(type, { ...d, id: Database.idBuilder(d.name, d.source.ID) });
 				}
 				catch (_) {
 					console.error(_, d);
