@@ -21,7 +21,7 @@ export class Database {
 			? `${name}_${source}`
 			: `${name.primary}${name.specifier ? `_${name.specifier}` : ""}_${source}`;
 
-	dataKeys = ["background"] as const;
+	static dataKeys = ["background"] as const;
 
 	constructor() {}
 
@@ -49,7 +49,7 @@ export class Database {
 	/**
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
-	async load(type: typeof this.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
+	async load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
 		const data = await (await fetch(`/assets/${type}.json`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
