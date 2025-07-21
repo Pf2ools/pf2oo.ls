@@ -4,7 +4,7 @@ import { schema } from "$triplit/schema";
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
 import { TriplitClient } from "@triplit/client";
 
-class Database {
+export class Database {
 	triplit = new TriplitClient({
 		// serverUrl: PUBLIC_TRIPLIT_URL,
 		// token: PUBLIC_TRIPLIT_TOKEN,
@@ -16,7 +16,7 @@ class Database {
 		}, */
 	});
 
-	idBuilder = (name: string, source: string): string => `${name}_${source}`;
+	static idBuilder = (name: string, source: string): string => `${name}_${source}`;
 
 	dataKeys = ["background"] as const;
 
@@ -53,7 +53,7 @@ class Database {
 		await this.triplit.transact(async (tx) => {
 			for (const d of data[type]) {
 				try {
-					await tx.insert(type, { ...d, id: this.idBuilder(d.name.primary, d.source.ID) });
+					await tx.insert(type, { ...d, id: Database.idBuilder(d.name.primary, d.source.ID) });
 				}
 				catch (_) {
 					console.error(_, d);
