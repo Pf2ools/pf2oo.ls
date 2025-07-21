@@ -17,6 +17,7 @@
 		"test": "npm run test:unit -- --run"
 	},
 	"dependencies": {
+		"pf2ools-data": "https://github.com/Pf2ools/pf2ools-data",
 		"pf2ools-schema": "https://github.com/Pf2ools/pf2ools-schema"
 	},
 	"devDependencies": {

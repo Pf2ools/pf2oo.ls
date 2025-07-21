@@ -4,6 +4,7 @@
     "": {
       "name": "pf2oo.ls",
       "dependencies": {
+        "pf2ools-data": "https://github.com/Pf2ools/pf2ools-data",
         "pf2ools-schema": "https://github.com/Pf2ools/pf2ools-schema",
       },
       "devDependencies": {
@@ -1261,6 +1262,8 @@
     "pathe": ["pathe@2.0.3", "", {}, "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w=="],
 
     "pathval": ["pathval@2.0.1", "", {}, "sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ=="],
+
+    "pf2ools-data": ["pf2ools-data@github:Pf2ools/pf2ools-data#82f5a27", {}, "Pf2ools-pf2ools-data-82f5a27"],
 
     "pf2ools-schema": ["pf2ools-schema@github:Pf2ools/pf2ools-schema#e757f34", { "dependencies": { "chalk": "^5.4.1", "commander": "^13.1.0", "zod": "^3.24.3" }, "bin": "scripts/test-data.js" }, "Pf2ools-pf2ools-schema-e757f34"],
 
