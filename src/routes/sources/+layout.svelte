@@ -20,16 +20,16 @@
 			<div>
 				{#each data.results as doc}
 					{@const current = decodeURIComponent(page.params.doc) === doc.id}
-					<!-- svelte-ignore a11y_autofocus -->
-					<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
-						<a
-							href={page.route.id?.includes("[doc]")
-								? page.route.id.replace("[doc]", doc.id)
-								: `${page.route.id}/${doc.id}`}
-						>
+					<a
+						href={page.route.id?.includes("[doc]")
+							? page.route.id.replace("[doc]", doc.id)
+							: `${page.route.id}/${doc.id}`}
+					>
+						<!-- svelte-ignore a11y_autofocus -->
+						<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
 							{doc.title.full} - {doc.title.short}
-						</a>
-					</div>
+						</div>
+					</a>
 				{/each}
 			</div>
 		{/if}
