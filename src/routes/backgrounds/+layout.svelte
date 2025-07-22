@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db";
 	import { useQuery } from "@triplit/svelte";
 
 	const { children } = $props();
 
-	db.load("background");
+	if (browser) db.load("background");
 	const data = useQuery(db.triplit, db.triplit.query("background").Include("sourceData"));
 
 	$inspect(data.results?.[0]);

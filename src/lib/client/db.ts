@@ -70,4 +70,6 @@ export class Database {
 
 const db = new Database();
 
+if (browser) db.loadSources(fetch);
+
 export { db };
