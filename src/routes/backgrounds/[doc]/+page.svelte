@@ -3,7 +3,7 @@
 	import { db } from "$lib/client/db";
 	import { useQueryOne } from "@triplit/svelte";
 
-	const data = $derived(useQueryOne(db.triplit, db.triplit.query("background").Where("id", "=", page.params.bg)));
+	const data = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc)));
 </script>
 
 {#if data.fetching}

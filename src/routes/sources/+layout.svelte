@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db";
 	import { useQuery } from "@triplit/svelte";
 
 	const { children } = $props();
 
-	if (browser) db.load("background");
-	const data = useQuery(db.triplit, db.triplit.query("background").Include("sourceData"));
+	const data = useQuery(db.triplit, db.triplit.query("source"));
 
 	$inspect(data.results?.[0]);
 </script>
@@ -29,7 +27,7 @@
 								? page.route.id.replace("[doc]", doc.id)
 								: `${page.route.id}/${doc.id}`}
 						>
-							{doc.name.primary} - {doc.source.ID} - {doc.sourceData?.title.full}
+							{doc.title.full} - {doc.title.short}
 						</a>
 					</div>
 				{/each}
