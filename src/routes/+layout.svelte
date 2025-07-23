@@ -4,7 +4,7 @@
 	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
-	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
+	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, LibraryBigIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
 	import { PersistedState } from "runed";
 	import "../app.css";
@@ -25,6 +25,12 @@
 			icon: BookUserIcon,
 			label: m["pages.background"](),
 			labelExpanded: m["pageLabels.background"](),
+		},
+		{
+			href: "/sources",
+			icon: LibraryBigIcon,
+			label: m["pages.source"](),
+			labelExpanded: m["pageLabels.source"](),
 		},
 	];
 	if (dev) {

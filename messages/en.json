@@ -2,9 +2,13 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"hello_world": "Hello, {name} in English!",
 	"pages": {
-		"background": "Backgrounds"
+		"background": "Backgrounds",
+		"source": "Sources",
+		"Source": "Sources"
 	},
 	"pageLabels": {
-		"background": "Browse backgrounds"
+		"background": "Browse backgrounds",
+		"source": "Browse sources",
+		"Source": "Sources"
 	}
 }
