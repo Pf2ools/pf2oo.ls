@@ -37,7 +37,7 @@
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
 <div class="grid grid-cols-2 gap-2 h-full">
-	<div class="border overflow-scroll p-2">
+	<div class="border overflow-y-scroll p-2">
 		{#if data.fetching}
 			<p>Loading...</p>
 		{:else if data.error}
@@ -61,7 +61,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="border overflow-scroll p-2">
+	<div class="border overflow-y-scroll p-2">
 		{@render children()}
 	</div>
 </div>
