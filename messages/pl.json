@@ -2,9 +2,11 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"hello_world": "Cześć, {name} po Polsku!",
 	"pages": {
-		"background": "Pochodzenia"
+		"background": "Pochodzenia",
+		"source": "Sources"
 	},
 	"pageLabels": {
-		"background": "Przeglądaj pochodzenia"
+		"background": "Przeglądaj pochodzenia",
+		"source": "Browse sources"
 	}
 }

@@ -3,12 +3,10 @@
 	"hello_world": "Hello, {name} in English!",
 	"pages": {
 		"background": "Backgrounds",
-		"source": "Sources",
-		"Source": "Sources"
+		"source": "Sources"
 	},
 	"pageLabels": {
 		"background": "Browse backgrounds",
-		"source": "Browse sources",
-		"Source": "Sources"
+		"source": "Browse sources"
 	}
 }

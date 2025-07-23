@@ -2,9 +2,11 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"hello_world": "Hola, {name} en Español!",
 	"pages": {
-		"background": "Orígenes"
+		"background": "Orígenes",
+		"source": "Sources"
 	},
 	"pageLabels": {
-		"background": "Explorar orígenes"
+		"background": "Explorar orígenes",
+		"source": "Browse sources"
 	}
 }
