@@ -1,5 +1,19 @@
 import { Schema as S } from "@triplit/client";
 
+const contentSchema = {
+	type: S.String(),
+	name: S.Record({
+		primary: S.String(),
+		aliases: S.Json({ nullable: true }),
+		specifier: S.String({ nullable: true }),
+	}),
+	source: S.Record({
+		ID: S.String(),
+		page: S.Number(),
+	}),
+	reference: S.Json({ nullable: true }),
+} as const;
+
 export const schema = S.Collections({
 	source: {
 		schema: S.Schema({
@@ -19,17 +33,79 @@ export const schema = S.Collections({
 	background: {
 		schema: S.Schema({
 			id: S.String(),
-			type: S.String(),
-			name: S.Record({
-				primary: S.String(),
-				aliases: S.Json({ nullable: true }),
-				specifier: S.String({ nullable: true }),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
 			}),
-			source: S.Record({
-				ID: S.String(),
-				page: S.Number(),
+		},
+	},
+	condition: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
 			}),
-			reference: S.Json({ nullable: true }),
+		},
+	},
+	domain: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
+			}),
+		},
+	},
+	event: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
+			}),
+		},
+	},
+	familiarAbility: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
+			}),
+		},
+	},
+	relicGift: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
+			data: S.Json({ nullable: true }),
+		}),
+		relationships: {
+			sourceData: S.RelationOne("source", {
+				where: [["id", "=", "$source.ID"]],
+			}),
+		},
+	},
+	skill: {
+		schema: S.Schema({
+			id: S.String(),
+			...contentSchema,
 			data: S.Json({ nullable: true }),
 		}),
 		relationships: {

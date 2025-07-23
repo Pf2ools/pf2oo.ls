@@ -21,7 +21,15 @@ export class Database {
 			? `${name}_${source}`
 			: `${name.primary}${name.specifier ? `_${name.specifier}` : ""}_${source}`;
 
-	static dataKeys = ["background"] as const;
+	static dataKeys = [
+		"background",
+		"condition",
+		"domain",
+		"event",
+		"familiarAbility",
+		"relicGift",
+		"skill",
+	] as const;
 
 	constructor() {}
 
