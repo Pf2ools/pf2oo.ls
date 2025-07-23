@@ -10,7 +10,23 @@
 	const data = useQuery(db.triplit, db.triplit.query("background").Include("sourceData"));
 
 	$inspect(data.results?.[0]);
+
+	function moveKeys(event: KeyboardEvent) {
+		const el = document.getElementById(decodeURIComponent(page.params.doc));
+		switch (event.key) {
+			case "ArrowDown":
+			case "j":
+				(el?.nextSibling as HTMLAnchorElement)?.click();
+				break;
+			case "ArrowUp":
+			case "k":
+				(el?.previousSibling as HTMLAnchorElement)?.click();
+				break;
+		}
+	}
 </script>
+
+<svelte:window onkeydown={moveKeys}></svelte:window>
 
 <div class="grid grid-cols-2 gap-2 h-full">
 	<div class="border overflow-y-scroll p-2">
@@ -20,9 +36,10 @@
 			<p>Error: {data.error.message}</p>
 		{:else if data.results}
 			<div>
-				{#each data.results as doc}
+				{#each data.results as doc (doc.id)}
 					{@const current = decodeURIComponent(page.params.doc) === doc.id}
 					<a
+						id={doc.id}
 						href={page.route.id?.includes("[doc]")
 							? page.route.id.replace("[doc]", doc.id)
 							: `${page.route.id}/${doc.id}`}
