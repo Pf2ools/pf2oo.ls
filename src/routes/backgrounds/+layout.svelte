@@ -12,12 +12,12 @@
 	$inspect(data.results?.[0]);
 
 	function moveKeys(event: KeyboardEvent) {
-		event.preventDefault();
 		const el = document.getElementById(decodeURIComponent(page.params.doc));
 		switch (event.key) {
 			case "ArrowDown":
 			case "j":{
 				const anchor = el?.nextSibling as HTMLAnchorElement;
+				event.preventDefault();
 				anchor?.click();
 				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
 				break;
@@ -25,6 +25,7 @@
 			case "ArrowUp":
 			case "k": {
 				const anchor = el?.previousSibling as HTMLAnchorElement;
+				event.preventDefault();
 				anchor?.click();
 				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
 				break;
