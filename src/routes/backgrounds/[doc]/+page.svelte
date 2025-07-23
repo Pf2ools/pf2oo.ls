@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { backgroundInfer } from "pf2ools-schema";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db";
 	import { useQueryOne } from "@triplit/svelte";
@@ -11,7 +12,8 @@
 {:else if data.error}
 	<p>Error: {data.error.message}</p>
 {:else if data.result}
+	{@const doc = data.result as backgroundInfer}
 	<div>
-		{JSON.stringify(data.result)}
+		{JSON.stringify(doc.data)}
 	</div>
 {/if}
