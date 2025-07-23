@@ -46,7 +46,7 @@
 		grid grid-cols-[auto_1fr_auto]
 	">
 		<!-- Sidebar (Left) -->
-		<Navigation.Rail expanded={isExpanded.current} classes="transition-[width]">
+		<Navigation.Rail expanded={isExpanded.current} classes="transition-[width]" padding="" tilesGap="">
 			{#snippet header()}
 				<Navigation.Tile title="Menu" labelExpanded="Shrink Menu" onclick={() => { isExpanded.current = !isExpanded.current; }}>
 					<MenuIcon />
@@ -56,6 +56,8 @@
 				{#each links as { label, href, labelExpanded, icon: Icon }}
 					<Navigation.Tile
 						classes="flex-col justify-center h-24"
+						active="preset-tonal-primary"
+						rounded=""
 						{label}
 						{href}
 						{labelExpanded}
@@ -75,7 +77,7 @@
 					<option value="es">ES</option>
 					<option value="pl">PL</option>
 				</select>
-				<Navigation.Tile labelExpanded="Settings" title="settings">
+				<Navigation.Tile labelExpanded="Settings" title="settings" rounded="">
 					<SettingsIcon />
 				</Navigation.Tile>
 			{/snippet}
