@@ -1265,7 +1265,7 @@
 
     "pf2ools-data": ["pf2ools-data@github:Pf2ools/pf2ools-data#82f5a27", {}, "Pf2ools-pf2ools-data-82f5a27"],
 
-    "pf2ools-schema": ["pf2ools-schema@github:Pf2ools/pf2ools-schema#e757f34", { "dependencies": { "chalk": "^5.4.1", "commander": "^13.1.0", "zod": "^3.24.3" }, "bin": "scripts/test-data.js" }, "Pf2ools-pf2ools-schema-e757f34"],
+    "pf2ools-schema": ["pf2ools-schema@github:Pf2ools/pf2ools-schema#4592513", { "dependencies": { "chalk": "^5.4.1", "commander": "^14.0.0", "zod": "^4.0.5" }, "bin": "scripts/test-data.js" }, "Pf2ools-pf2ools-schema-4592513"],
 
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
@@ -1665,9 +1665,7 @@
 
     "pf2ools-schema/chalk": ["chalk@5.4.1", "", {}, "sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w=="],
 
-    "pf2ools-schema/commander": ["commander@13.1.0", "", {}, "sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw=="],
-
-    "pf2ools-schema/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
+    "pf2ools-schema/commander": ["commander@14.0.0", "", {}, "sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA=="],
 
     "pnpm-workspace-yaml/yaml": ["yaml@2.8.0", "", { "bin": { "yaml": "bin.mjs" } }, "sha512-4lLa/EcQCB0cJkyts+FpIRx5G/llPxfP6VQU5KByHEhLxY3IJCH0f0Hy1MHI8sClTvsIb8qwRJ6R/ZdlDJ/leQ=="],
 
