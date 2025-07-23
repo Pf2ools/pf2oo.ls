@@ -12,16 +12,23 @@
 	$inspect(data.results?.[0]);
 
 	function moveKeys(event: KeyboardEvent) {
+		event.preventDefault();
 		const el = document.getElementById(decodeURIComponent(page.params.doc));
 		switch (event.key) {
 			case "ArrowDown":
-			case "j":
-				(el?.nextSibling as HTMLAnchorElement)?.click();
+			case "j":{
+				const anchor = el?.nextSibling as HTMLAnchorElement;
+				anchor?.click();
+				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
 				break;
+			}
 			case "ArrowUp":
-			case "k":
-				(el?.previousSibling as HTMLAnchorElement)?.click();
+			case "k": {
+				const anchor = el?.previousSibling as HTMLAnchorElement;
+				anchor?.click();
+				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
 				break;
+			}
 		}
 	}
 </script>
