@@ -1,19 +1,19 @@
 <script lang="ts">
 	import type { backgroundInfer } from "pf2ools-schema";
 	import { page } from "$app/state";
-	import { db } from "$lib/client/db";
+	import { db } from "$lib/client/db.js";
 	import { useQueryOne } from "@triplit/svelte";
 
-	const data = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc)));
+	const { data } = $props();
+	let { doc } = $derived(data);
+
+	const live = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc)));
+
+	$effect(() => {
+		doc = live.result as backgroundInfer;
+	});
 </script>
 
-{#if data.fetching}
-	<p>Loading...</p>
-{:else if data.error}
-	<p>Error: {data.error.message}</p>
-{:else if data.result}
-	{@const doc = data.result as backgroundInfer}
-	<div>
-		{JSON.stringify(doc.data)}
-	</div>
-{/if}
+<div>
+	{JSON.stringify(doc)}
+</div>
