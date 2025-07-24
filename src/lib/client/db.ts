@@ -3,6 +3,7 @@ import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
 import { TriplitClient } from "@triplit/client";
+import { useDebounce } from "runed";
 
 export class Database {
 	triplit = new TriplitClient({
@@ -15,6 +16,8 @@ export class Database {
 			onDatabaseInit: console.log,
 		}, */
 	});
+
+	debounceDuration = 3000;
 
 	static idBuilder = (name: string | { primary: string; specifier: string }, source: string): string =>
 		typeof name === "string"
@@ -36,7 +39,12 @@ export class Database {
 	/**
 	 * As .load but specifically for book sources, due to their slightly different schema.
 	 */
-	async loadSources(fetch: typeof globalThis.fetch = globalThis.fetch) {
+	loadSources = useDebounce(this.#loadSources, this.debounceDuration);
+
+	/**
+	 * As .load but specifically for book sources, due to their slightly different schema.
+	 */
+	async #loadSources(fetch: typeof globalThis.fetch = globalThis.fetch) {
 		const data = await (await fetch(`/assets/source.json`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading source data...`);
@@ -57,7 +65,12 @@ export class Database {
 	/**
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
-	async load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
+	load = useDebounce(this.#load, 500);
+
+	/**
+	 * Loads a specific type of item from a bundled JSON file.
+	 */
+	async #load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
 		const data = await (await fetch(`/assets/${type}.json`)).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
