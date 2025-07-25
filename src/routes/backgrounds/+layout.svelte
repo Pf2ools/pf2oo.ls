@@ -10,7 +10,7 @@
 	if (browser) db.load("background");
 	const live = useQuery(db.triplit, db.triplit.query("background"));
 	$effect(() => {
-		docs = live.results;
+		if (live.results) docs = live.results;
 	});
 
 	function moveKeys(event: KeyboardEvent) {

@@ -10,7 +10,7 @@
 	const live = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc)));
 
 	$effect(() => {
-		doc = live.result as backgroundInfer;
+		if (live.result) doc = live.result as backgroundInfer;
 	});
 </script>
 
