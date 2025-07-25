@@ -3,6 +3,7 @@
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db";
+	import { isTruthy } from "$lib/utils.js";
 	import { useQuery } from "@triplit/svelte";
 
 	const { children, data } = $props();
@@ -14,7 +15,7 @@
 	if (browser) db.load(dataType);
 	const live = useQuery(db.triplit, db.triplit.query(dataType));
 	$effect(() => {
-		if (live.results) docs = live.results;
+		if (isTruthy(live.results)) docs = live.results;
 	});
 
 	function moveKeys(event: KeyboardEvent) {

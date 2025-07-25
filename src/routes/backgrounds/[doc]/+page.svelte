@@ -2,6 +2,7 @@
 	import type { backgroundInfer } from "pf2ools-schema";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db.js";
+	import { isTruthy } from "$lib/utils.js";
 	import { useQueryOne } from "@triplit/svelte";
 
 	const { data } = $props();
@@ -10,7 +11,7 @@
 	const live = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc!)));
 
 	$effect(() => {
-		if (live.result) doc = live.result as backgroundInfer;
+		if (isTruthy(live.result)) doc = live.result as backgroundInfer;
 	});
 </script>
 
