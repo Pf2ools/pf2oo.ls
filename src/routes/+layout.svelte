@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Component } from "svelte";
 	import { dev } from "$app/environment";
-	import { base } from "$app/paths";
+	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
@@ -22,19 +22,19 @@
 	};
 	const links: Link[] = [
 		{
-			href: `${base}/backgrounds`,
+			href: resolve("/backgrounds"),
 			icon: BookUserIcon,
 			label: m["pages.background"](),
 			labelExpanded: m["pageLabels.background"](),
 		},
 		{
-			href: `${base}/events`,
+			href: resolve("/events"),
 			icon: BellIcon,
 			label: m["pages.event"](),
 			labelExpanded: m["pageLabels.event"](),
 		},
 		{
-			href: `${base}/sources`,
+			href: resolve("/sources"),
 			icon: LibraryBigIcon,
 			label: m["pages.source"](),
 			labelExpanded: m["pageLabels.source"](),
