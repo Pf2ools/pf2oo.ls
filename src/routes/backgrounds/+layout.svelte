@@ -20,7 +20,6 @@
 
 	function moveKeys(event: KeyboardEvent) {
 		if (!page.params.doc) return;
-		console.log(page.params.doc);
 		const el = document.getElementById(decodeURIComponent(page.params.doc));
 		switch (event.key) {
 			case "ArrowDown":
