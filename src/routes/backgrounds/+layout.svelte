@@ -20,11 +20,12 @@
 
 	function moveKeys(event: KeyboardEvent) {
 		if (!page.params.doc) return;
+		console.log(page.params.doc);
 		const el = document.getElementById(decodeURIComponent(page.params.doc));
 		switch (event.key) {
 			case "ArrowDown":
-			case "j":{
-				const anchor = el?.nextSibling as HTMLAnchorElement;
+			case "j": {
+				const anchor = el?.nextElementSibling as HTMLAnchorElement;
 				event.preventDefault();
 				anchor?.click();
 				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
@@ -32,7 +33,7 @@
 			}
 			case "ArrowUp":
 			case "k": {
-				const anchor = el?.previousSibling as HTMLAnchorElement;
+				const anchor = el?.previousElementSibling as HTMLAnchorElement;
 				event.preventDefault();
 				anchor?.click();
 				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
