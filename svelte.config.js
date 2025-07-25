@@ -1,5 +1,4 @@
 /* eslint-disable node/prefer-global/process */
-import multiAdapter from "@macfja/svelte-multi-adapter";
 import nodeAdapter from "@sveltejs/adapter-node";
 import staticAdapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
@@ -20,13 +19,16 @@ const config = {
 	},
 
 	kit: {
+		prerender: {
+			concurrency: 4,
+		},
+		router: {
+			type: "pathname",
+		},
 		alias: {
 			$triplit: "triplit/*",
 		},
-		adapter: multiAdapter([
-			staticAdapter({	fallback: "404.html" }),
-			nodeAdapter({ out: "build/_node" }),
-		]),
+		adapter: process.env.NODE ? nodeAdapter({ out: "build/_node" }) : staticAdapter({ fallback: "404.html" }),
 		paths: {
 			base: process.argv.includes("dev") ? "" : process.env.BASE_PATH,
 		},
