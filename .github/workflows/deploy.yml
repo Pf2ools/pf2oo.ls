@@ -14,7 +14,7 @@ jobs:
 
       - name: build
         env:
-            STATIC: true
+            BUILD_STATIC: true
             BASE_PATH: '/${{ github.event.repository.name }}'
         run: bun run build
 
