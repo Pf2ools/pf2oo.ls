@@ -27,6 +27,7 @@
 			label: m["pages.background"](),
 			labelExpanded: m["pageLabels.background"](),
 		},
+	/*
 		{
 			href: resolve("/events"),
 			icon: BellIcon,
@@ -39,6 +40,7 @@
 			label: m["pages.source"](),
 			labelExpanded: m["pageLabels.source"](),
 		},
+	*/
 	];
 	if (dev) {
 		links.push({ label: "Demos", href: "/demos", icon: FolderCodeIcon, labelExpanded: "Browse demos" });
