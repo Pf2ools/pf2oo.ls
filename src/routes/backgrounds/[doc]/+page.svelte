@@ -14,6 +14,8 @@
 	});
 </script>
 
-<div>
-	{JSON.stringify(doc)}
-</div>
+<article>
+	<h1>{doc.name.primary}</h1>
+	<section>{JSON.stringify(doc.data)}</section>
+	<footer>{doc.source.ID}</footer>
+</article>
