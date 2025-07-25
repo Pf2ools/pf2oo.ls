@@ -1,3 +1,4 @@
+/* eslint-disable node/prefer-global/process */
 import multiAdapter from "@macfja/svelte-multi-adapter";
 import nodeAdapter from "@sveltejs/adapter-node";
 import staticAdapter from "@sveltejs/adapter-static";
@@ -23,9 +24,12 @@ const config = {
 			$triplit: "triplit/*",
 		},
 		adapter: multiAdapter([
-			staticAdapter({	fallback: "200.html" }),
+			staticAdapter({	fallback: "404.html" }),
 			nodeAdapter({ out: "build/_node" }),
 		]),
+		paths: {
+			base: process.argv.includes("dev") ? "" : process.env.BASE_PATH,
+		},
 	},
 };
 
