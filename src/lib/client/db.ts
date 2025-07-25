@@ -1,4 +1,5 @@
 import { browser } from "$app/environment";
+import { resolve } from "$app/paths";
 import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
@@ -26,12 +27,12 @@ export class Database {
 
 	static dataKeys = [
 		"background",
-		"condition",
-		"domain",
+		// "condition",
+		// "domain",
 		"event",
-		"familiarAbility",
-		"relicGift",
-		"skill",
+		// "familiarAbility",
+		// "relicGift",
+		// "skill",
 	] as const;
 
 	constructor() {}
@@ -45,7 +46,7 @@ export class Database {
 	 * As .load but specifically for book sources, due to their slightly different schema.
 	 */
 	async #loadSources(fetch: typeof globalThis.fetch = globalThis.fetch) {
-		const data = await (await fetch(`/assets/source.json`)).json();
+		const data = await (await fetch(resolve(`/assets/source.json`))).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading source data...`);
 		await this.triplit.transact(async (tx) => {
@@ -71,7 +72,7 @@ export class Database {
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
 	async #load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
-		const data = await (await fetch(`/assets/${type}.json`)).json();
+		const data = await (await fetch(resolve(`/assets/${type}.json`))).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
 		await this.triplit.transact(async (tx) => {
