@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { base } from "$app/paths";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db";
 	import { useQuery } from "@triplit/svelte";
@@ -46,8 +47,8 @@
 				<a
 					id={doc.id}
 					href={page.route.id?.includes("[doc]")
-						? page.route.id.replace("[doc]", doc.id)
-						: `${page.route.id}/${doc.id}`}
+						? `${base}/${page.route.id?.replace("[doc]", doc.id)}`
+						: `${base}/${page.route.id}/${doc.id}`}
 				>
 					<!-- svelte-ignore a11y_autofocus -->
 					<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
