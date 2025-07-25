@@ -6,8 +6,10 @@ export async function entries() {
 	return background.map((x) => ({ doc: Database.idBuilder(x.name.primary, x.source.ID) }));
 }
 
+let docsLoaded = false;
+
 export async function load({ params, fetch }) {
-	await db.load("background", fetch);
+	if (!docsLoaded) docsLoaded = Boolean(await db.load("background", fetch));
 	return {
 		doc: await db.triplit.fetchById("background", params.doc) as backgroundInfer,
 	};
