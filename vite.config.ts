@@ -7,47 +7,48 @@ import devtoolsJson from "vite-plugin-devtools-json";
 import lucidePreprocess from "vite-plugin-lucide-preprocess";
 import "dotenv/config";
 
-console.log(`Building for ${process.env.BUILD_STATIC ? "STATIC" : "NODE"}`);
-export default defineConfig({
-	server: { fs: { allow: ["./triplit"] } },
-	plugins: [
-		lucidePreprocess(),
-		tailwindcss(),
-		sveltekit(),
-		devtoolsJson(),
-		paraglideVitePlugin({
-			project: "./project.inlang",
-			outdir: "./src/lib/paraglide",
-			strategy: ["cookie", "baseLocale"],
-		}),
-	],
-	// @ts-expect-error Vitest is broken for some reason.
-	test: {
-		projects: [
-			{
-				extends: "./vite.config.ts",
-				test: {
-					name: "client",
-					environment: "browser",
-					browser: {
-						enabled: true,
-						provider: "playwright",
-						instances: [{ browser: "chromium" }],
-					},
-					include: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-					exclude: ["src/lib/server/**"],
-					setupFiles: ["./vitest-setup-client.ts"],
-				},
-			},
-			{
-				extends: "./vite.config.ts",
-				test: {
-					name: "server",
-					environment: "node",
-					include: ["src/**/*.{test,spec}.{js,ts}"],
-					exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-				},
-			},
+export default defineConfig(({ mode }) => {
+	if (mode === "build") console.log(`Building for ${process.env.BUILD_STATIC ? "STATIC" : "NODE"}`);
+	return {
+		server: { fs: { allow: ["./triplit"] } },
+		plugins: [
+			lucidePreprocess(),
+			tailwindcss(),
+			sveltekit(),
+			devtoolsJson(),
+			paraglideVitePlugin({
+				project: "./project.inlang",
+				outdir: "./src/lib/paraglide",
+				strategy: ["cookie", "baseLocale"],
+			}),
 		],
-	},
+		test: {
+			projects: [
+				{
+					extends: "./vite.config.ts",
+					test: {
+						name: "client",
+						environment: "browser",
+						browser: {
+							enabled: true,
+							provider: "playwright",
+							instances: [{ browser: "chromium" }],
+						},
+						include: ["src/**/*.svelte.{test,spec}.{js,ts}"],
+						exclude: ["src/lib/server/**"],
+						setupFiles: ["./vitest-setup-client.ts"],
+					},
+				},
+				{
+					extends: "./vite.config.ts",
+					test: {
+						name: "server",
+						environment: "node",
+						include: ["src/**/*.{test,spec}.{js,ts}"],
+						exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"],
+					},
+				},
+			],
+		},
+	};
 });

@@ -7,10 +7,7 @@ export async function entries() {
 }
 
 export async function load({ params }) {
-	console.log(params);
-	return {
-		doc: await db.triplit.fetchById("background", params.doc) as backgroundInfer,
-	};
+	return { doc: await db.triplit.fetchById("background", params.doc) as backgroundInfer };
 }
 
 export const prerender = "auto";

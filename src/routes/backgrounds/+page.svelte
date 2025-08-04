@@ -1,1 +1,1 @@
-Nothing is being shown!
+Nothing selected.
