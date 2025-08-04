@@ -55,15 +55,26 @@
 		grid grid-cols-[auto_1fr_auto]
 	">
 		<!-- Sidebar (Left) -->
-		<Navigation.Rail expanded={isExpanded.current} classes="transition-[width]" padding="" tilesGap="">
+		<Navigation.Rail
+			expanded={isExpanded.current}
+			classes="transition-[width]"
+			padding=""
+			tilesGap=""
+			height="max-h-[calc(100vh-3.5rem)]"
+			tilesClasses="overflow-y-auto no-scrollbar"
+			tilesJustify=""
+		>
 			{#snippet header()}
-				<Navigation.Tile title="Menu" labelExpanded="Shrink Menu" onclick={() => { isExpanded.current = !isExpanded.current; }}>
+				<Navigation.Tile
+					title="Menu"
+					labelExpanded="Shrink Menu"
+					onclick={() => { isExpanded.current = !isExpanded.current; }}
+					classes="flex-col justify-center h-12"
+				>
 					<MenuIcon />
 				</Navigation.Tile>
-			{/snippet}
-			{#snippet tiles()}
 				<Navigation.Tile
-					classes="flex-col justify-center h-24"
+					classes="flex-col justify-center h-16"
 					active="preset-tonal-primary"
 					rounded=""
 					label="Home"
@@ -73,9 +84,11 @@
 				>
 					<HouseIcon></HouseIcon>
 				</Navigation.Tile>
+			{/snippet}
+			{#snippet tiles()}
 				{#each links as { label, href, labelExpanded, icon: Icon }}
 					<Navigation.Tile
-						classes="flex-col justify-center h-24"
+						classes="flex-col justify-center h-16"
 						active="preset-tonal-primary"
 						rounded=""
 						{label}

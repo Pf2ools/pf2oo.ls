@@ -8,3 +8,7 @@
 @import "@skeletonlabs/skeleton/themes/vintage";
 
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+
+@utility no-scrollbar {
+	@apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
