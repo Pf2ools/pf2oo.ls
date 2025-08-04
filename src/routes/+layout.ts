@@ -4,7 +4,7 @@ import { db } from "$lib/client/db";
 
 /* === Options === */
 export const ssr = true;
-// export const prerender = true;
+export const prerender = true;
 // export const trailingSlash = "always";
 
 /* === Globals === */
