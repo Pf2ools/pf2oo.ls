@@ -16,7 +16,11 @@
 </script>
 
 <article>
-	<h1>{doc.name.primary}</h1>
-	<section>{JSON.stringify(doc.data)}</section>
-	<footer>{doc.source.ID}</footer>
+	{#if doc}
+		<h1>{doc.name.primary}</h1>
+		<section>{JSON.stringify(doc.data)}</section>
+		<footer>{doc.source.ID}</footer>
+	{:else}
+		Could not find!
+	{/if}
 </article>
