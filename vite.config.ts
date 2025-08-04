@@ -21,6 +21,7 @@ export default defineConfig({
 			strategy: ["cookie", "baseLocale"],
 		}),
 	],
+	// @ts-expect-error Vitest is broken for some reason.
 	test: {
 		projects: [
 			{
