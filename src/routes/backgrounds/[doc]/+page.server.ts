@@ -14,3 +14,5 @@ export async function load({ params, fetch }) {
 		doc: await db.triplit.fetchById("background", params.doc) as backgroundInfer,
 	};
 }
+
+export const prerender = false;
