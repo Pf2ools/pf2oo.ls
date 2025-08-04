@@ -3,8 +3,8 @@ import { browser } from "$app/environment";
 import { db } from "$lib/client/db";
 
 /* === Options === */
-export const ssr = false;
-export const prerender = false;
+export const ssr = true;
+export const prerender = true;
 // export const trailingSlash = "always";
 
 /* === Globals === */
