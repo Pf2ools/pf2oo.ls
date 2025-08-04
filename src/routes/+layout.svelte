@@ -105,7 +105,7 @@
 		<!-- Main -->
 		<main class="p-4 h-[calc(100dvh-3.5rem)] overflow-y-auto">
 			{@render children()}
-			<div id="version-tag" class="absolute bottom-0.5 right-1 text-[0.6rem] text-gray-500/50 font-mono select-all">
+			<div id="version-tag" class="absolute bottom-px right-0.5 text-[0.55rem] text-gray-500/50 font-mono select-all">
 				V.{version}
 			</div>
 		</main>
