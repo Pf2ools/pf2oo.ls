@@ -9,7 +9,7 @@ import workerUrl from "@triplit/client/worker-client-operator?url";
 import { useDebounce } from "runed";
 
 export class Database {
-	TriplitClient = browser ? WorkerClient : TriplitClient;
+	TriplitClient = browser ? WorkerClient : TriplitClient as unknown as typeof WorkerClient;
 	triplit = new this.TriplitClient({
 		workerUrl,
 		// serverUrl: PUBLIC_TRIPLIT_URL,
