@@ -16,13 +16,13 @@
 </script>
 
 <article>
-	<svelte:boundary onerror={handler}>
+	<svelte:boundary>
 		{#if doc}
 			<h1>{doc.name.primary}</h1>
 			<section>{JSON.stringify(doc.data)}</section>
 			<footer>{doc.source.ID}</footer>
 		{:else}
-			Could not find!
+			Could not find the doc?!
 		{/if}
 
 		{#snippet failed(_, reset)}

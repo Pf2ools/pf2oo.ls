@@ -5,7 +5,7 @@
 	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
-	import { BellIcon, BookUserIcon, EllipsisIcon, FolderCodeIcon, LibraryBigIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
+	import { BellIcon, BookUserIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, LibraryBigIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
 	import { PersistedState } from "runed";
 	import "../app.css";
@@ -62,6 +62,17 @@
 				</Navigation.Tile>
 			{/snippet}
 			{#snippet tiles()}
+				<Navigation.Tile
+					classes="flex-col justify-center h-24"
+					active="preset-tonal-primary"
+					rounded=""
+					label="Home"
+					href="/"
+					labelExpanded="Home"
+					selected={page.url.pathname === "/"}
+				>
+					<HouseIcon></HouseIcon>
+				</Navigation.Tile>
 				{#each links as { label, href, labelExpanded, icon: Icon }}
 					<Navigation.Tile
 						classes="flex-col justify-center h-24"
