@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Component } from "svelte";
-	import { dev } from "$app/environment";
+	import { dev, version } from "$app/environment";
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
-	import { BellIcon, BookUserIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, LibraryBigIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
+	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
 	import { PersistedState } from "runed";
 	import "../app.css";
@@ -105,6 +105,9 @@
 		<!-- Main -->
 		<main class="p-4 h-[calc(100dvh-3.5rem)] overflow-y-auto">
 			{@render children()}
+			<div id="version-tag" class="absolute bottom-0.5 right-1 text-[0.6rem] text-gray-500/50 font-mono">
+				V.{version}
+			</div>
 		</main>
 		<!-- Sidebar (Right) -->
 		<aside class="p-2 hidden">
