@@ -28,7 +28,9 @@ const config = {
 		alias: {
 			$triplit: "triplit/*",
 		},
-		adapter: process.env.BUILD_STATIC ? staticAdapter({ fallback: "404.html" }) : nodeAdapter({ out: "build/_node" }),
+		adapter: process.env.BUILD_STATIC
+			? staticAdapter({ fallback: "404.html" })
+			: nodeAdapter({ out: "build/_node" }),
 		paths: {
 			base: process.argv.includes("dev") ? "" : process.env.BASE_PATH,
 		},
