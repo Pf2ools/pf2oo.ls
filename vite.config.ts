@@ -1,10 +1,13 @@
+/* eslint-disable node/prefer-global/process */
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 import lucidePreprocess from "vite-plugin-lucide-preprocess";
+import "dotenv/config";
 
+console.log(`Building for ${process.env.BUILD_STATIC ? "STATIC" : "NODE"}`);
 export default defineConfig({
 	server: { fs: { allow: ["./triplit"] } },
 	plugins: [
