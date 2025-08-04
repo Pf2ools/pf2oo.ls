@@ -105,7 +105,11 @@
 				{/each}
 			{/snippet}
 			{#snippet footer()}
-				<select class="select" value={getLocale()} onchange={(ev) => setLocale(ev.currentTarget.value as typeof locales[number])}>
+				<select
+					class="select w-20"
+					value={getLocale()}
+					onchange={(ev) => setLocale(ev.currentTarget.value as typeof locales[number])}
+				>
 					<option value="en">EN</option>
 					<option value="es">ES</option>
 					<option value="pl">PL</option>
