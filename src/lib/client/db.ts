@@ -8,6 +8,7 @@ import { WorkerClient } from "@triplit/client/worker-client";
 import workerUrl from "@triplit/client/worker-client-operator?url";
 import { useDebounce } from "runed";
 
+export type AvailableDocumentTypes = typeof Database["dataKeys"][number];
 export class Database {
 	TriplitClient = browser ? WorkerClient : TriplitClient as unknown as typeof WorkerClient;
 	triplit = new this.TriplitClient({
