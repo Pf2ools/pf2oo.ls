@@ -4,15 +4,21 @@ import { schema } from "$triplit/schema";
 // import { browser } from '$app/environment';
 // import { PUBLIC_TRIPLIT_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
 import { TriplitClient } from "@triplit/client";
+import { WorkerClient } from "@triplit/client/worker-client";
+import workerUrl from "@triplit/client/worker-client-operator?url";
 import { useDebounce } from "runed";
 
 export class Database {
-	triplit = new TriplitClient({
+	TriplitClient = browser ? WorkerClient : TriplitClient;
+	triplit = new this.TriplitClient({
+		workerUrl,
 		// serverUrl: PUBLIC_TRIPLIT_URL,
 		// token: PUBLIC_TRIPLIT_TOKEN,
 		autoConnect: false, // browser,
 		schema,
-		storage: browser ? "indexeddb" : "memory",
+		storage: browser
+			? { name: "local", type: "indexeddb" }
+			: "memory",
 		/* experimental: {
 			onDatabaseInit: console.log,
 		}, */
