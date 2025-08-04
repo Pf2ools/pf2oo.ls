@@ -67,7 +67,7 @@
 					active="preset-tonal-primary"
 					rounded=""
 					label="Home"
-					href="/"
+					href={resolve("/")}
 					labelExpanded="Home"
 					selected={page.url.pathname === "/"}
 				>
