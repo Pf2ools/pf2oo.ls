@@ -47,7 +47,7 @@
 <div class="grid grid-cols-2 gap-2 h-full">
 	<div class="border overflow-y-scroll p-2">
 		<div>
-			{#each docs as doc (doc.id)}
+			{#each docs.toSorted((a, b) => a.name.primary.localeCompare(b.name.primary)) as doc (doc.id)}
 				{@const current = decodeURIComponent(page.params.doc!) === doc.id}
 				<a
 					id={doc.id}
