@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main'
+    branches: main
 
 jobs:
   build_site:
@@ -14,14 +14,14 @@ jobs:
 
       - name: build
         env:
-            BUILD_STATIC: true
-            BASE_PATH: '/${{ github.event.repository.name }}'
+          BUILD_STATIC: true
+          BASE_PATH: "/${{ github.event.repository.name }}"
         run: bun run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/'
+          path: build/
 
   deploy:
     needs: build_site
@@ -36,6 +36,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-        - name: Deploy
-          id: deployment
-          uses: actions/deploy-pages@v4
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
