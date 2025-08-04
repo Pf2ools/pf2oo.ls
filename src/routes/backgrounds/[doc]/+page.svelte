@@ -16,11 +16,17 @@
 </script>
 
 <article>
-	{#if doc}
-		<h1>{doc.name.primary}</h1>
-		<section>{JSON.stringify(doc.data)}</section>
-		<footer>{doc.source.ID}</footer>
-	{:else}
-		Could not find!
-	{/if}
+	<svelte:boundary onerror={handler}>
+		{#if doc}
+			<h1>{doc.name.primary}</h1>
+			<section>{JSON.stringify(doc.data)}</section>
+			<footer>{doc.source.ID}</footer>
+		{:else}
+			Could not find!
+		{/if}
+
+		{#snippet failed(_, reset)}
+			<button onclick={reset}>oops! try again</button>
+		{/snippet}
+	</svelte:boundary>
 </article>
