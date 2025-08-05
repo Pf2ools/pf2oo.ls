@@ -27,10 +27,8 @@
 	{/if}
 </svelte:head>
 
-<article>
-	{#if doc}
-		<Background {doc} />
-	{:else}
-		Could not find the doc?!
-	{/if}
-</article>
+{#if doc}
+	<Background {doc} />
+{:else}
+	Could not find the doc?!
+{/if}

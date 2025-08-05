@@ -20,3 +20,7 @@
 @utility scrollbar-stable-x {
 	scrollbar-gutter: stable both-edges;
 }
+
+@utility scrollbar-thin {
+	scrollbar-width: thin;
+}
