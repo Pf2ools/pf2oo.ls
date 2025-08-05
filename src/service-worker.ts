@@ -5,6 +5,7 @@
 
 import { build, files, version } from "$service-worker";
 
+// Makes sure we have the proper globals, for example we cannot access the DOM here.
 const sw = globalThis as unknown as ServiceWorkerGlobalScope;
 
 // Create a unique cache name for this deployment
@@ -22,6 +23,7 @@ sw.addEventListener("install", (event) => {
 		await cache.addAll(ASSETS);
 	}
 
+	// Don't kill the worker until its finished, but dont wait for it to finish.
 	event.waitUntil(addFilesToCache());
 });
 
@@ -33,6 +35,7 @@ sw.addEventListener("activate", (event) => {
 		}
 	}
 
+	// Don't kill the worker until its finished, but dont wait for it to finish.
 	event.waitUntil(deleteOldCaches());
 });
 
