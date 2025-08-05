@@ -15,6 +15,17 @@
 	});
 </script>
 
+<svelte:head>
+	{#if doc}
+		<title>{doc.name.primary} | pf2ools</title>
+		<!-- TODO: When parser is made, turn this into a plain unformatted string. -->
+		<meta
+			name="description"
+			content={doc.data?.entries[0] as string ?? ""}
+		/>
+	{/if}
+</svelte:head>
+
 <article>
 	<svelte:boundary>
 		{#if doc}
