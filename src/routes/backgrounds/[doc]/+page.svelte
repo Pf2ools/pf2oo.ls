@@ -18,6 +18,7 @@
 <svelte:head>
 	{#if doc}
 		<title>{doc.name.primary} | pf2ools</title>
+		<meta property="title" content="{doc.name.primary} | pf2ools" />
 		<!-- TODO: When parser is made, turn this into a plain unformatted string. -->
 		<meta
 			name="description"
