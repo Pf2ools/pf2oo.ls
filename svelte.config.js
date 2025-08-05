@@ -13,6 +13,7 @@ const config = {
 		modernAst: true,
 		discloseVersion: true,
 		runes: true,
+		preserveComments: true,
 		experimental: {
 			async: true,
 		},
@@ -24,6 +25,7 @@ const config = {
 		},
 		router: {
 			type: "pathname",
+			resolution: "client",
 		},
 		alias: {
 			$triplit: "triplit/*",
