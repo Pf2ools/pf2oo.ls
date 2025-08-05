@@ -44,24 +44,27 @@
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
-<div class="grid grid-cols-2 gap-2 h-full">
-	<div class="border overflow-y-scroll p-2">
-		<div>
-			{#each docs.toSorted((a, b) => a.name.primary.localeCompare(b.name.primary)) as doc (doc.id)}
-				{@const current = decodeURIComponent(page.params.doc!) === doc.id}
-				<a
-					id={doc.id}
-					href={resolve(`/${pageName}/[doc]`, { doc: doc.id })}
-				>
-					<!-- svelte-ignore a11y_autofocus -->
-					<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
-						{doc.name.primary} - {doc.source.ID}
-					</div>
-				</a>
-			{/each}
-		</div>
+<!-- Vertical 2/3 and 1/3 height on mobile. 1/2 Horizontal on desktop. -->
+<div class="grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2 h-full">
+	<div class="
+		border overflow-y-scroll p-2
+		max-sm:order-last sm:order-first
+		max-sm:row-span-1
+	">
+		{#each docs.toSorted((a, b) => a.name.primary.localeCompare(b.name.primary)) as doc (doc.id)}
+			{@const current = decodeURIComponent(page.params.doc!) === doc.id}
+			<a
+				id={doc.id}
+				href={resolve(`/${pageName}/[doc]`, { doc: doc.id })}
+			>
+				<!-- svelte-ignore a11y_autofocus -->
+				<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
+					{doc.name.primary} - {doc.source.ID}
+				</div>
+			</a>
+		{/each}
 	</div>
-	<div class="border overflow-y-scroll p-2">
+	<div class="border overflow-y-scroll p-2 max-sm:row-span-2">
 		{@render children()}
 	</div>
 </div>
