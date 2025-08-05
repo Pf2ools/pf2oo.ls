@@ -33,9 +33,10 @@
 				<span class="inline-block">
 					{doc.name.primary}
 				</span>
-				<a href="/sources/{doc.source.ID}" class="anchor inline-block text-xs align-top opacity-75">
+				<!-- TODO: Convert to anchor once /sources is up -->
+				<span class="anchor inline-block text-xs align-top opacity-75">
 					{doc.source.ID}
-				</a>
+				</span>
 			</h4>
 			<section class="prose prose-invert prose-p:not-first:indent-8 prose-p:mb-2 prose-p:mt-0">
 				{#if doc.data?.entries}
