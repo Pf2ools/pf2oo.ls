@@ -34,12 +34,12 @@ export class Database {
 
 	static dataKeys = [
 		"background",
-		"condition",
-		"divineIntercession",
-		"event",
-		"familiarAbility",
-		"relicGift",
-		"skill",
+		// "condition",
+		// "divineIntercession",
+		// "event",
+		// "familiarAbility",
+		// "relicGift",
+		// "skill",
 	] as const;
 
 	constructor() {}

@@ -1,9 +1,10 @@
 <script lang="ts">
+	import type { AvailableDocumentTypes } from "$lib/client/db";
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 
 	type Props = {
-		docs: DB["background"][];
+		docs: DB[AvailableDocumentTypes][];
 	};
 	const { docs }: Props = $props();
 
@@ -37,12 +38,11 @@
 	{@const current = decodeURIComponent(page.params.doc!) === doc.id}
 	<a
 		id={doc.id}
+		class="hover:bg-amber-500/25"
 		href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 	>
-		<!-- svelte-ignore a11y_autofocus -->
 		<div
 			class="hover:bg-amber-500/25"
-			autofocus={current}
 			class:bg-amber-300={ current }
 			class:dark:bg-amber-800={ current }
 		>
