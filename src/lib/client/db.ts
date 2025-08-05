@@ -8,7 +8,7 @@ import { WorkerClient } from "@triplit/client/worker-client";
 import workerUrl from "@triplit/client/worker-client-operator?url";
 import { useDebounce } from "runed";
 
-export type AvailableDocumentTypes = typeof Database["dataKeys"][number];
+export type AvailableDocumentTypes = typeof Database["dataTypes"][number];
 export class Database {
 	TriplitClient = browser ? WorkerClient : TriplitClient as unknown as typeof WorkerClient;
 	triplit = new this.TriplitClient({
@@ -32,7 +32,12 @@ export class Database {
 			? `${name}_${source}`
 			: `${name.primary}${name.specifier ? `_${name.specifier}` : ""}_${source}`;
 
-	static dataKeys = [
+	/**
+	 * Available data types to work with.
+	 * IMPORTANT! This list should only be extended with types that can be referred to via an URL.
+	 * Meaning, it requires a page for every type.
+	 */
+	static dataTypes = [
 		"background",
 		// "condition",
 		// "divineIntercession",
@@ -86,7 +91,7 @@ export class Database {
 	async #loadAll(fetch: typeof globalThis.fetch = globalThis.fetch) {
 		await Promise.all([
 			this.#loadSources(fetch),
-			...Database.dataKeys.map((type) => this.#load(type, fetch)),
+			...Database.dataTypes.map((type) => this.#load(type, fetch)),
 		]);
 		return true;
 	}
@@ -94,7 +99,7 @@ export class Database {
 	/**
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
-	async #load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
+	async #load(type: typeof Database.dataTypes[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
 		const data = await (await fetch(resolve(`/assets/${type}.json`))).json();
 		// eslint-disable-next-line no-console
 		console.log(`Loading ${type} data...`);
