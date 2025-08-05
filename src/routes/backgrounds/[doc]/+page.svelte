@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { backgroundInfer } from "pf2ools-schema";
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db.js";
+	import Background from "$lib/components/background.svelte";
 	import { isTruthy } from "$lib/utils.js";
 	import { useQueryOne } from "@triplit/svelte";
 
@@ -11,7 +11,7 @@
 	const live = $derived(useQueryOne(db.triplit, db.triplit.query("background").Id(page.params.doc!)));
 
 	$effect(() => {
-		if (isTruthy(live.result)) doc = live.result as backgroundInfer;
+		if (isTruthy(live.result)) doc = live.result as DB["background"];
 	});
 </script>
 
@@ -28,30 +28,9 @@
 </svelte:head>
 
 <article>
-	<svelte:boundary>
-		{#if doc}
-			<h4 class="h4">
-				<span class="inline-block">
-					{doc.name.primary}
-				</span>
-				<!-- TODO: Convert to anchor once /sources is up -->
-				<span class="anchor inline-block text-xs align-top opacity-75">
-					{doc.source.ID}
-				</span>
-			</h4>
-			<section class="prose max-w-full dark:prose-invert prose-p:not-first:indent-8 prose-p:mb-1 prose-p:mt-0 text-justify">
-				{#if doc.data?.entries}
-					{#each doc.data.entries as entry}
-						<p>{entry}</p>
-					{/each}
-				{/if}
-			</section>
-		{:else}
-			Could not find the doc?!
-		{/if}
-
-		{#snippet failed(_, reset)}
-			<button onclick={reset}>oops! try again</button>
-		{/snippet}
-	</svelte:boundary>
+	{#if doc}
+		<Background {doc} />
+	{:else}
+		Could not find the doc?!
+	{/if}
 </article>

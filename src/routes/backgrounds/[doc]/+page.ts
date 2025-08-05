@@ -1,4 +1,3 @@
-import type { backgroundInfer } from "pf2ools-schema";
 import { Database, db } from "$lib/client/db";
 import { background } from "pf2ools-data/bundles/byDatatype/core/background.json";
 
@@ -7,7 +6,7 @@ export async function entries() {
 }
 
 export async function load({ params }) {
-	return { doc: await db.triplit.fetchById("background", params.doc) as backgroundInfer };
+	return { doc: await db.triplit.fetchById("background", params.doc) as DB["background"] };
 }
 
 export const prerender = "auto";
