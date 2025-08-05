@@ -17,9 +17,9 @@
 {/snippet}
 
 <svelte:boundary>
-	<header>
+	<header class="text-nowrap">
 		{#if !doc.name.aliases}
-			<span class="h4">
+			<span class="h4 text-ellipsis overflow-hidden max-w-11/12">
 				{@render title()}
 			</span>
 		{:else}
@@ -27,7 +27,7 @@
 				open={openState}
 				onOpenChange={(e) => (openState = e.open)}
 				positioning={{ placement: "bottom" }}
-				triggerBase="h4"
+				triggerBase="h4 text-ellipsis overflow-hidden max-w-11/12"
 				contentBase="card preset-filled p-2 px-4 text-sm"
 				openDelay={200}
 				closeDelay={300}
@@ -37,12 +37,18 @@
 				arrowClasses="preset-filled"
 			>
 				{#snippet trigger()}
-					{@render title()}<span class="text-sm align-top">*</span>
+					{@render title()}
 				{/snippet}
 				{#snippet content()}
-					This {doc.type} also has the following {doc.name.aliases?.length === 1 ? "alias" : "aliases"}: {doc.name.aliases?.join(", ")}
+					<p>
+						<span class="font-bold">Full Name:</span> {doc.name.primary}
+					</p>
+					<p>
+						<span class="font-bold">{doc.name.aliases?.length === 1 ? "Alias" : "Aliases"}:</span> {doc.name.aliases?.join(", ")}
+					</p>
 				{/snippet}
 			</Tooltip>
+			<span class="text-sm align-top">*</span>
 		{/if}
 		<!-- TODO: Convert to anchor once /sources is up -->
 		<span class="anchor inline-block text-xs align-top opacity-75 font-bold">
