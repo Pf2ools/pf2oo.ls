@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db.js";
-	import Background from "$lib/components/background.svelte";
+	import Background from "$lib/components/Background.svelte";
 	import { isTruthy } from "$lib/utils.js";
 	import { useQueryOne } from "@triplit/svelte";
 
