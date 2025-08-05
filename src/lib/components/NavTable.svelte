@@ -33,6 +33,11 @@
 			}
 		}
 	}
+
+	function popout(event: MouseEvent) {
+		if (event.button !== 2) return; // 0 = left, 1 = middle, 2 = right
+		event.preventDefault(); // stop context menu
+	}
 </script>
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
@@ -42,6 +47,7 @@
 	<a
 		id={doc.id}
 		class="hover:bg-amber-500/25"
+		oncontextmenu={(ev) => popout(ev)}
 		href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 	>
 		<div
