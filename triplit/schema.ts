@@ -54,7 +54,7 @@ export const schema = S.Collections({
 			}),
 		},
 	},
-	domain: {
+	divineIntercession: {
 		schema: S.Schema({
 			id: S.String(),
 			...contentSchema,
