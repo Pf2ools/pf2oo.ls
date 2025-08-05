@@ -22,6 +22,7 @@ const config = {
 	kit: {
 		prerender: {
 			concurrency: 4,
+			handleMissingId: "warn",
 		},
 		router: {
 			type: "pathname",
