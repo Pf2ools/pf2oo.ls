@@ -39,7 +39,7 @@
 					{doc.source.ID}
 				</span>
 			</h4>
-			<section class="prose prose-invert prose-p:not-first:indent-8 prose-p:mb-2 prose-p:mt-0">
+			<section class="prose dark:prose-invert prose-p:not-first:indent-8 prose-p:mb-2 prose-p:mt-0">
 				{#if doc.data?.entries}
 					{#each doc.data.entries as entry}
 						<p>{entry}</p>

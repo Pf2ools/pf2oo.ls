@@ -58,7 +58,12 @@
 				href={resolve(`/${pageName}/[doc]`, { doc: doc.id })}
 			>
 				<!-- svelte-ignore a11y_autofocus -->
-				<div class="hover:bg-amber-500/25" autofocus={current} class:bg-amber-800={ current }>
+				<div
+					class="hover:bg-amber-500/25"
+					autofocus={current}
+					class:bg-amber-300={ current }
+					class:dark:bg-amber-800={ current }
+				>
 					{doc.name.primary} - {doc.source.ID}
 				</div>
 			</a>
