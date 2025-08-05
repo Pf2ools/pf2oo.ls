@@ -24,7 +24,18 @@
 		max-sm:order-last sm:order-first
 		max-sm:row-span-1
 	">
-		<NavTable {docs} />
+		<NavTable {docs}>
+			<!--
+			{#snippet row({ doc })}
+				<div class="basis-1/2 justify-self-start">
+					{doc.name.primary}
+				</div>
+				<div class="basis-1/2 justify-self-end">
+					{doc.source.ID}
+				</div>
+			{/snippet}
+			-->
+		</NavTable>
 	</div>
 	<div class="border overflow-y-auto scrollbar-stable-x py-2 sm:py-4 px-2 max-sm:row-span-2">
 		{@render children()}

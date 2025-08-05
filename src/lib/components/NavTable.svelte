@@ -1,12 +1,14 @@
-<script lang="ts">
+<script lang="ts" generics="DocType extends AvailableDocumentTypes">
 	import type { AvailableDocumentTypes } from "$lib/client/db";
+	import type { Snippet } from "svelte";
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 
 	type Props = {
-		docs: DB[AvailableDocumentTypes][];
+		docs: DB[DocType][];
+		row?: Snippet<[{ doc: DB[DocType] }]>;
 	};
-	const { docs }: Props = $props();
+	const { docs, row }: Props = $props();
 
 	function moveKeys(event: KeyboardEvent) {
 		if (!page.params.doc) return;
@@ -42,11 +44,20 @@
 		href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 	>
 		<div
-			class="hover:bg-amber-500/25"
+			class="hover:bg-amber-500/25 grid grid-cols-2"
 			class:bg-amber-300={ current }
 			class:dark:bg-amber-800={ current }
 		>
-			{doc.name.primary} - {doc.source.ID}
+			{#if row}
+				{@render row({ doc })}
+			{:else}
+				<div class="basis-1/2 justify-self-start">
+					{doc.name.primary}
+				</div>
+				<div class="basis-1/2 justify-self-end">
+					{doc.source.ID}
+				</div>
+			{/if}
 		</div>
 	</a>
 {/each}
