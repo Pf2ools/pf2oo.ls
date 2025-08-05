@@ -18,9 +18,21 @@
 <article>
 	<svelte:boundary>
 		{#if doc}
-			<h1>{doc.name.primary}</h1>
-			<section>{JSON.stringify(doc.data)}</section>
-			<footer>{doc.source.ID}</footer>
+			<h4 class="h4">
+				<span class="inline-block">
+					{doc.name.primary}
+				</span>
+				<a href="/sources/{doc.source.ID}" class="anchor inline-block text-xs align-top opacity-75">
+					{doc.source.ID}
+				</a>
+			</h4>
+			<section class="prose prose-invert prose-p:not-first:indent-8 prose-p:mb-2 prose-p:mt-0">
+				{#if doc.data?.entries}
+					{#each doc.data.entries as entry}
+						<p>{entry}</p>
+					{/each}
+				{/if}
+			</section>
 		{:else}
 			Could not find the doc?!
 		{/if}
