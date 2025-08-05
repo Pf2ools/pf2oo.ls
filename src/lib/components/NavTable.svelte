@@ -7,8 +7,9 @@
 	type Props = {
 		docs: DB[DocType][];
 		row?: Snippet<[{ doc: DB[DocType] }]>;
+		gridCols?: string;
 	};
-	const { docs, row }: Props = $props();
+	const { docs, row, gridCols = "grid-cols-2" }: Props = $props();
 
 	function moveKeys(event: KeyboardEvent) {
 		if (!page.params.doc) return;
@@ -44,7 +45,7 @@
 		href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 	>
 		<div
-			class="hover:bg-amber-500/25 grid grid-cols-2"
+			class="hover:bg-amber-500/25 grid {gridCols}"
 			class:bg-amber-300={ current }
 			class:dark:bg-amber-800={ current }
 		>
