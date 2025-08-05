@@ -69,7 +69,7 @@
 			</a>
 		{/each}
 	</div>
-	<div class="border overflow-y-scroll p-2 max-sm:row-span-2">
+	<div class="border overflow-y-auto scrollbar-stable-x py-2 max-sm:row-span-2">
 		{@render children()}
 	</div>
 </div>

@@ -61,7 +61,7 @@
 			padding=""
 			tilesGap=""
 			height="max-h-[calc(100vh-3.5rem)]"
-			tilesClasses="overflow-y-auto no-scrollbar"
+			tilesClasses="overflow-y-auto scrollbar-none"
 			tilesJustify=""
 		>
 			{#snippet header()}
