@@ -45,7 +45,7 @@
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
 <!-- Vertical 2/3 and 1/3 height on mobile. 1/2 Horizontal on desktop. -->
-<div class="grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2 h-full">
+<div class="h-full container mx-auto grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2">
 	<div class="
 		border overflow-y-scroll p-2
 		max-sm:order-last sm:order-first
