@@ -76,6 +76,22 @@ export class Database {
 	load = useDebounce(this.#load, 500);
 
 	/**
+	 * Loads all types of items. Primarily used on the backend when prerendering.
+	 */
+	loadAll = useDebounce(this.#loadAll, 5000);
+
+	/**
+	 * Loads all types of items. Primarily used on the backend when prerendering.
+	 */
+	async #loadAll(fetch: typeof globalThis.fetch = globalThis.fetch) {
+		await Promise.all([
+			this.#loadSources(fetch),
+			...Database.dataKeys.map((type) => this.#load(type, fetch)),
+		]);
+		return true;
+	}
+
+	/**
 	 * Loads a specific type of item from a bundled JSON file.
 	 */
 	async #load(type: typeof Database.dataKeys[number], fetch: typeof globalThis.fetch = globalThis.fetch) {
