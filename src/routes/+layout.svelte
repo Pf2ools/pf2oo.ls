@@ -60,7 +60,7 @@
 			classes="transition-[width]"
 			padding=""
 			tilesGap=""
-			height="max-h-[calc(100vh-3.5rem)]"
+			height="max-h-[calc(100vh)]"
 			tilesClasses="overflow-y-auto scrollbar-none"
 			tilesJustify=""
 		>
