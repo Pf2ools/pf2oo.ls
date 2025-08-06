@@ -1,15 +1,18 @@
 <script lang="ts" generics="DocType extends AvailableDocumentTypes">
 	import type { AvailableDocumentTypes } from "$lib/client/db";
 	import type { Snippet } from "svelte";
+	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
+	import { onMount } from "svelte";
 
 	type Props = {
 		docs: DB[DocType][];
 		row?: Snippet<[{ doc: DB[DocType] }]>;
 		gridCols?: string;
+		navigateOnMount?: boolean;
 	};
-	const { docs, row, gridCols = "grid-cols-2" }: Props = $props();
+	const { docs, row, gridCols = "grid-cols-2", navigateOnMount = false }: Props = $props();
 
 	function moveKeys(event: KeyboardEvent) {
 		if (!page.params.doc) return;
@@ -38,6 +41,11 @@
 		if (event.button !== 2) return; // 0 = left, 1 = middle, 2 = right
 		event.preventDefault(); // stop context menu
 	}
+
+	// TODO: Maybe make it remember your last nav?
+	onMount(async () => {
+		if (navigateOnMount) await goto(resolve(`/${docs[0].type}s/[doc]`, { doc: docs[0].id }));
+	});
 </script>
 
 <svelte:window onkeydown={moveKeys}></svelte:window>

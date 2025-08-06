@@ -24,7 +24,7 @@
 		max-sm:order-last sm:order-first
 		max-sm:row-span-1
 	">
-		<NavTable {docs}>
+		<NavTable {docs} navigateOnMount={true}>
 			<!--
 			{#snippet row({ doc })}
 				<div class="basis-1/2 justify-self-start">
