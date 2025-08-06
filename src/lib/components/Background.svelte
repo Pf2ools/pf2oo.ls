@@ -16,7 +16,7 @@
 	{/if}
 {/snippet}
 
-<article class="card preset-tonal border p-3 max-h-full flex flex-col">
+<article class="pf2e-card p-3 max-h-full flex flex-col">
 	<svelte:boundary>
 		<header class="text-nowrap">
 			{#if !doc.name.aliases}
