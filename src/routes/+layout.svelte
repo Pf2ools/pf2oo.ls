@@ -120,7 +120,7 @@
 			{/snippet}
 		</Navigation.Rail>
 		<!-- Main -->
-		<main class="p-2 sm:p-4 h-[calc(100dvh-3.5rem)] overflow-y-auto">
+		<main class="p-2 sm:p-4 h-[calc(100dvh-0rem)] overflow-y-auto">
 			{@render children()}
 			<div id="version-tag" class="absolute bottom-px right-0.5 text-[0.55rem] text-gray-500/50 font-mono select-all">
 				V.{version}
