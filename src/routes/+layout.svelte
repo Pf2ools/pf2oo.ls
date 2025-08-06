@@ -47,7 +47,7 @@
 	}
 </script>
 
-<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+<div class="grid h-dvh w-dvw background-pattern-cube grid-rows-[auto_1fr_auto]">
 	<!-- Header -->
 	<header class="bg-red-500 p-4 h-14">(header)</header>
 	<!-- Grid Column -->
