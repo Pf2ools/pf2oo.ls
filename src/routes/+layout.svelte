@@ -5,7 +5,7 @@
 	import { page } from "$app/state";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
-	import { BookUserIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
+	import { BookUserIcon, CodeXmlIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
 	import { Navigation } from "@skeletonlabs/skeleton-svelte";
 	import { PersistedState } from "runed";
 	import "../app.css";
@@ -122,8 +122,8 @@
 		<!-- Main -->
 		<main class="p-2 sm:p-4 h-[calc(100dvh-0rem)] overflow-y-auto">
 			{@render children()}
-			<div id="version-tag" class="absolute bottom-px right-0.5 text-[0.55rem] text-gray-500/50 font-mono select-all">
-				V.{version}
+			<div id="version-tag" class="absolute bottom-1 right-1 text-[0.55rem] text-gray-500/50 font-mono select-all">
+				V.{version} <a class="anchor" target="_blank" href="https://github.com/Pf2eToolsOrg/pf2oo.ls"><CodeXmlIcon size={12} class="inline-block pb-px"></CodeXmlIcon></a>
 			</div>
 		</main>
 		<!-- Sidebar (Right) -->
