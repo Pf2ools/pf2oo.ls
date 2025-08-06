@@ -71,7 +71,7 @@
 		</section>
 
 		{#snippet failed(_, reset)}
-			<button onclick={reset}>Failed to render {doc.id}</button>
+			Failed to render {doc.id}. <button class="btn preset-filled-primary-50-950" onclick={reset}>Try again?</button>
 		{/snippet}
 	</svelte:boundary>
 </article>
