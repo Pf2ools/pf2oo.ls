@@ -49,7 +49,7 @@
 
 <div class="grid h-dvh w-dvw background-pattern-cube grid-rows-[auto_1fr_auto]">
 	<!-- Header -->
-	<header class="bg-red-500 p-4 h-14">(header)</header>
+	<!-- <header class="bg-red-500 p-4 h-14">(header)</header> -->
 	<!-- Grid Column -->
 	<div class="
 		grid grid-cols-[auto_1fr_auto]
