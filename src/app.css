@@ -35,7 +35,11 @@
 
 	@apply backdrop-blur-xs;
 
-	background: --alpha(var(--color-surface-700) / 0.25);
+	background: --alpha(var(--color-surface-200) / 0.25);
+
+	@variant dark {
+		background: --alpha(var(--color-surface-700) / 0.25);
+	}
 
 	&::before {
 		content: "";
@@ -44,7 +48,7 @@
 		inset: 0;
 		border-radius: inherit;
 		border: var(--border);
-		background: linear-gradient(var(--color-surface-500), var(--color-surface-600)) border-box;
+		background: linear-gradient(var(--color-surface-600), var(--color-surface-500)) border-box;
 		mask:
 			linear-gradient(black, black) border-box,
 			linear-gradient(black, black) padding-box;
@@ -64,11 +68,17 @@ Or pf2e-card-border-[1px_solid_transparent]
 @utility background-pattern-cube {
 	transition: background 0.5s ease-out;
 	transform-origin: center;
-	--top-opacity: 2.5%;
+	--top-opacity: 2%;
 	--side-opacity: 1%;
 	--front-opacity: calc(var(--top-opacity) + var(--side-opacity));
 	--scale: 1;
-	--primary-color: var(--color-primary-500);
+	--primary-color: var(--color-primary-900);
+
+	@variant dark {
+		--primary-color: var(--color-primary-500);
+		--top-opacity: 2.5%;
+		--side-opacity: 1%;
+	}
 
 	background-image:
 		linear-gradient(
