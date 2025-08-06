@@ -60,7 +60,7 @@
 			flex-grow -mr-3 pr-0.5
 			prose dark:prose-invert
 			prose-p:not-first:indent-8 prose-p:mb-1 prose-p:mt-0
-			overflow-y-auto scrollbar-thin
+			overflow-y-auto scrollbar-thin scrollbar-stable
 			text-justify
 		">
 			{#if doc.data?.entries}
