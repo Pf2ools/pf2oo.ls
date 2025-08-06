@@ -31,6 +31,7 @@
 
 @utility pf2e-card {
 	--border-width: 1px;
+	--border: var(--border-width) solid transparent;
 
 	@apply backdrop-blur-xs;
 
@@ -42,7 +43,7 @@
 		z-index: -1;
 		inset: 0;
 		border-radius: inherit;
-		border: var(--border-width) solid transparent;
+		border: var(--border);
 		background: linear-gradient(var(--color-surface-500), var(--color-surface-600)) border-box;
 		mask:
 			linear-gradient(black, black) border-box,
@@ -51,8 +52,13 @@
 	}
 }
 
+/*
+Used as either pf2e-card-border-4(px)
+Or pf2e-card-border-[1px_solid_transparent]
+*/
 @utility pf2e-card-border-* {
 	--border-width: calc(--value(number) * 1px);
+	--border: --value([*]);
 }
 
 @utility background-pattern-cube {

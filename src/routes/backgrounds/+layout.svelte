@@ -20,7 +20,7 @@
 <!-- Vertical 2/3 and 1/3 height on mobile. 1/2 Horizontal on desktop. -->
 <div class="h-full w-full container mx-auto grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2">
 	<div class="
-		border overflow-hidden
+		pf2e-card overflow-hidden
 		max-sm:order-last sm:order-first
 		max-sm:row-span-1
 	">
