@@ -80,7 +80,7 @@
 					label="Home"
 					href={resolve("/")}
 					labelExpanded="Home"
-					selected={page.url.pathname === "/"}
+					selected={page.url.pathname === resolve("/")}
 				>
 					<HouseIcon></HouseIcon>
 				</Navigation.Tile>
