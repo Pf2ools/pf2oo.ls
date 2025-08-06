@@ -16,7 +16,7 @@
 	{/if}
 {/snippet}
 
-<article class="card preset-tonal border p-3 h-full overflow-hidden">
+<article class="card preset-tonal border p-3 h-full flex flex-col">
 	<svelte:boundary>
 		<header class="text-nowrap">
 			{#if !doc.name.aliases}
@@ -57,6 +57,7 @@
 			</span>
 		</header>
 		<section class="
+			flex-grow -mr-3 pr-0.5
 			prose dark:prose-invert
 			prose-p:not-first:indent-8 prose-p:mb-1 prose-p:mt-0
 			overflow-y-auto scrollbar-thin

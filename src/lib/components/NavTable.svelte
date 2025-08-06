@@ -42,29 +42,31 @@
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
-{#each docs.toSorted((a, b) => a.name.primary.localeCompare(b.name.primary)) as doc (doc.id)}
-	{@const current = decodeURIComponent(page.params.doc!) === doc.id}
-	<a
-		id={doc.id}
-		class="hover:bg-amber-500/25"
-		oncontextmenu={(ev) => popout(ev)}
-		href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
-	>
-		<div
-			class="hover:bg-amber-500/25 grid {gridCols}"
-			class:bg-amber-300={ current }
-			class:dark:bg-amber-800={ current }
+<div class="overflow-y-scroll h-full p-2">
+	{#each docs.toSorted((a, b) => a.name.primary.localeCompare(b.name.primary)) as doc (doc.id)}
+		{@const current = decodeURIComponent(page.params.doc!) === doc.id}
+		<a
+			id={doc.id}
+			class="hover:bg-amber-500/25"
+			oncontextmenu={(ev) => popout(ev)}
+			href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 		>
-			{#if row}
-				{@render row({ doc })}
-			{:else}
-				<div class="basis-1/2 justify-self-start">
-					{doc.name.primary}
-				</div>
-				<div class="basis-1/2 justify-self-end">
-					{doc.source.ID}
-				</div>
-			{/if}
-		</div>
-	</a>
-{/each}
+			<div
+				class="hover:bg-amber-500/25 grid {gridCols}"
+				class:bg-amber-300={ current }
+				class:dark:bg-amber-800={ current }
+			>
+				{#if row}
+					{@render row({ doc })}
+				{:else}
+					<div class="basis-1/2 justify-self-start">
+						{doc.name.primary}
+					</div>
+					<div class="basis-1/2 justify-self-end">
+						{doc.source.ID}
+					</div>
+				{/if}
+			</div>
+		</a>
+	{/each}
+</div>

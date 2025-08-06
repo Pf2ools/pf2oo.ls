@@ -18,9 +18,9 @@
 </script>
 
 <!-- Vertical 2/3 and 1/3 height on mobile. 1/2 Horizontal on desktop. -->
-<div class="h-full container mx-auto grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2">
+<div class="h-full w-full container mx-auto grid max-sm:grid-rows-3 sm:grid-cols-2 gap-2">
 	<div class="
-		border overflow-y-scroll p-2
+		border overflow-hidden
 		max-sm:order-last sm:order-first
 		max-sm:row-span-1
 	">
@@ -37,7 +37,7 @@
 			-->
 		</NavTable>
 	</div>
-	<div class="max-sm:row-span-2">
+	<div class="max-sm:row-span-2 overflow-hidden">
 		{@render children()}
 	</div>
 </div>

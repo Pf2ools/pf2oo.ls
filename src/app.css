@@ -24,3 +24,7 @@
 @utility scrollbar-thin {
 	scrollbar-width: thin;
 }
+
+:root {
+	scrollbar-color: var(--color-primary-100-900) rgba(0, 0, 0, 0);
+}
