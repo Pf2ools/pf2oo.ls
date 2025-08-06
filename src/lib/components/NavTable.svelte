@@ -1,10 +1,8 @@
 <script lang="ts" generics="DocType extends AvailableDocumentTypes">
 	import type { AvailableDocumentTypes } from "$lib/client/db";
 	import type { Snippet } from "svelte";
-	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
-	import { onMount } from "svelte";
 
 	type Props = {
 		docs: DB[DocType][];
@@ -12,6 +10,7 @@
 		gridCols?: string;
 		navigateOnMount?: boolean;
 	};
+	// eslint-disable-next-line unused-imports/no-unused-vars
 	const { docs, row, gridCols = "grid-cols-2", navigateOnMount = false }: Props = $props();
 
 	function moveKeys(event: KeyboardEvent) {
@@ -42,10 +41,10 @@
 		event.preventDefault(); // stop context menu
 	}
 
-	// TODO: Maybe make it remember your last nav?
+/* TODO: Make it remember your last nav, or else on a refresh you come back to 0.
 	onMount(async () => {
 		if (navigateOnMount) await goto(resolve(`/${docs[0].type}s/[doc]`, { doc: docs[0].id }));
-	});
+	}); */
 </script>
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
