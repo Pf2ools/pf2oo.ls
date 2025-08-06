@@ -35,10 +35,18 @@
 
 	@apply backdrop-blur-xs;
 
-	background: --alpha(var(--color-surface-200) / 0.25);
+	background: linear-gradient(
+		160deg,
+		--alpha(var(--color-surface-300) / 0.25),
+		--alpha(var(--color-surface-200) / 0.15)
+	);
 
 	@variant dark {
-		background: --alpha(var(--color-surface-700) / 0.25);
+		background: linear-gradient(
+			160deg,
+			--alpha(var(--color-surface-600) / 0.3),
+			--alpha(var(--color-surface-800) / 0.15)
+		);
 	}
 
 	&::before {
@@ -48,7 +56,7 @@
 		inset: 0;
 		border-radius: inherit;
 		border: var(--border);
-		background: linear-gradient(var(--color-surface-500), var(--color-surface-700)) border-box;
+		background: linear-gradient(160deg, var(--color-surface-500), var(--color-surface-800)) border-box;
 		mask:
 			linear-gradient(black, black) border-box,
 			linear-gradient(black, black) padding-box;
