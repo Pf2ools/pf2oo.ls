@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
 			warmup: {
 				clientFiles: [
 					"./src/lib/client/db.ts",
+					"@lucide/svelte",
 				],
 				ssrFiles: [
 					"./src/routes/+layout.server.ts",
