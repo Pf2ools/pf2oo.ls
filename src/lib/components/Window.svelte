@@ -42,6 +42,9 @@
 			width = target.offsetWidth;
 			height = target.offsetHeight;
 		}
+
+		// Probably not needed but might as well?
+		return draggable.disable;
 	});
 
 	// State to manage whether we are currently resizing
