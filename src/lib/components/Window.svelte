@@ -37,6 +37,11 @@
 			},
 			...draggableOptions,
 		});
+
+		if (width === undefined && height === undefined) {
+			width = target.offsetWidth;
+			height = target.offsetHeight;
+		}
 	});
 
 	// State to manage whether we are currently resizing
@@ -45,13 +50,6 @@
 	let initialMouseY = $state(0);
 	let initialElemWidth = $state(0);
 	let initialElemHeight = $state(0);
-
-	$effect(() => {
-		if (target && width === undefined && height === undefined) {
-			width = target.offsetWidth;
-			height = target.offsetHeight;
-		}
-	});
 
 	// Function to handle the start of resizing
 	function startResize(e: MouseEvent) {
