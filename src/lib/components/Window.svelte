@@ -6,9 +6,11 @@
 
 	type Props = {
 		children: Snippet<[]>;
-		draggableOptions: DraggableParams;
+		drag?: Snippet<[]>;
+		draggableOptions?: DraggableParams;
+		classes?: string;
 	};
-	const { children, draggableOptions }: Props = $props();
+	const { children, drag, draggableOptions, classes }: Props = $props();
 
 	let target: HTMLElement | undefined;
 	// eslint-disable-next-line unused-imports/no-unused-vars
@@ -28,10 +30,14 @@
 
 <div
 	bind:this={ target }
-	class="resize overflow-auto w-1/3 flex flex-col absolute left-48"
+	class="base:resize base:overflow-auto base:w-1/3 base:flex base:flex-col base:absolute base:left-48 {classes}"
 >
-	<div class="drag-handle w-full bg-gray-500">
-		drag me!
-	</div>
+	{#if drag}
+		{@render drag()}
+	{:else}
+		<div class="drag-handle w-full bg-gray-500 px-2">
+			drag me!
+		</div>
+	{/if}
 	{@render children()}
 </div>
