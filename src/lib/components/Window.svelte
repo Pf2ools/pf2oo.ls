@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DraggableParams } from "animejs";
+	import type { Draggable, DraggableParams } from "animejs";
 	import type { Snippet } from "svelte";
 	import { GripIcon } from "@lucide/svelte";
 	import { createDraggable } from "animejs";
@@ -15,21 +15,28 @@
 	const { children, drag, draggableOptions, classes }: Props = $props();
 
 	let target: HTMLElement | undefined;
+	// eslint-disable-next-line unused-imports/no-unused-vars
+	let draggable: Draggable;
+
+	let width = $state() as number;
+	let height = $state() as number;
 
 	onMount(() => {
 		if (!target) throw new Error("Somehow, there is no target to make draggable.");
-		createDraggable(target, {
+		draggable = createDraggable(target, {
 			trigger: ".drag-handle",
-			container: "body",
-			containerPadding: [8, 8, 8, 8],
-			containerFriction: 1,
+			container: "#main",
+			containerPadding: [4, 4, 4, 4],
 			velocityMultiplier: 0.2,
+			onResize: (self) => {
+				const container = (self.$scrollContainer as HTMLElement).getBoundingClientRect();
+				width = Math.min(container.width - self.containerPadding[0] * 2.5, width);
+				height = Math.min(container.height - self.containerPadding[0] * 2.5, height);
+			},
 			...draggableOptions,
 		});
 	});
 
-	let width = $state() as number;
-	let height = $state() as number;
 	// State to manage whether we are currently resizing
 	let isResizing = $state(false);
 	let initialMouseX = $state(0);
@@ -61,6 +68,7 @@
 	}
 
 	let collapsed = $state(false);
+	let headerHeight = $state(8);
 </script>
 
 <svelte:window on:mousemove={ duringResize } on:mouseup={ endResize } />
@@ -70,33 +78,34 @@
 	class="
 		base:w-1/3 base:overflow-auto
 		base:flex base:flex-col
-		base:absolute base:left-2/7 base:top-1/3
 		{classes}
 	"
 	style:width={ `${Math.max(width, 100)}px` }
-	style:height={ `${Math.max(height, 100)}px` }
+	style:height={ collapsed ? headerHeight : `${Math.max(height, 100)}px` }
 >
-	{#if drag}
-		{@render drag({ collapsed })}
-	{:else}
-		<div
-			role="none"
-			class="drag-handle w-full bg-gray-500 px-2"
-			ondblclick={() => collapsed = !collapsed}
-		>
-			drag me! {collapsed ? "(closed)" : ""}
-		</div>
-	{/if}
-	{#if !collapsed}
-		<main class="h-full relative" transition:slide>
-			{@render children()}
+	<header bind:clientHeight={ headerHeight }>
+		{#if drag}
+			{@render drag({ collapsed })}
+		{:else}
 			<div
 				role="none"
-				class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
-				onmousedown={startResize}
+				class="drag-handle w-full bg-gray-500 px-2"
+				ondblclick={() => collapsed = !collapsed}
 			>
-				<GripIcon size="12"></GripIcon>
+				drag me! {collapsed ? "(closed)" : ""}
 			</div>
+		{/if}
+	</header>
+	{#if !collapsed}
+		<main class="h-full relative overflow-auto" transition:slide>
+			{@render children()}
 		</main>
+		<div
+			role="none"
+			class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
+			onmousedown={startResize}
+		>
+			<GripIcon size="12"></GripIcon>
+		</div>
 	{/if}
 </div>
