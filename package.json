@@ -4,8 +4,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "bunx --bun vite dev",
+		"build": "bunx --bun vite build",
 		"preview:node": "bun build/_node",
 		"preview:static": "bunx http-server ./build -c-1 -d false -s -o",
 		"prepare": "svelte-kit sync || echo ''",
@@ -14,7 +14,7 @@
 		"lint": "eslint . --fix",
 		"lint:check": "eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "bun run test:unit -- --run"
 	},
 	"dependencies": {
 		"pf2ools-data": "https://github.com/Pf2ools/pf2ools-data",
