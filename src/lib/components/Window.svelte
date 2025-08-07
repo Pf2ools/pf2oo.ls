@@ -28,7 +28,7 @@
 
 <div
 	bind:this={ target }
-	class="resize overflow-auto w-1/3 flex flex-col"
+	class="resize overflow-auto w-1/3 flex flex-col absolute left-48"
 >
 	<div class="drag-handle w-full bg-gray-500">
 		drag me!
