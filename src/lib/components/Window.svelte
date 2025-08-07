@@ -18,6 +18,7 @@
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
 
 	let target: HTMLElement | undefined;
+	let dragHandle: HTMLElement | undefined;
 
 	let draggable: Draggable;
 
@@ -27,7 +28,7 @@
 	onMount(() => {
 		if (!target) throw new Error("Somehow, there is no target to make draggable.");
 		draggable = createDraggable(target, {
-			trigger: ".drag-handle",
+			trigger: dragHandle,
 			container: "#main",
 			containerPadding: [4, 4, 4, 4],
 			velocityMultiplier: 0.2,
@@ -46,7 +47,9 @@
 		}
 
 		// Probably not needed but might as well?
-		return draggable.disable;
+		return () => {
+			draggable.disable();
+		};
 	});
 
 	// State to manage whether we are currently resizing
@@ -120,19 +123,19 @@
 	bind:this={ target }
 	class="
 		base:w-1/3 base:overflow-auto
-		base:flex base:flex-col
+		base:flex base:flex-col absolute
 		{classes}
 	"
 	style:width="{ width }px"
 	style:height={ collapsed ? "min-content" : `${height}px` }
 >
-	<header class="select-none">
+	<header class="select-none" bind:this={ dragHandle }>
 		{#if drag}
 			{@render drag({ collapsed })}
 		{:else}
 			<div
 				role="none"
-				class="drag-handle w-full bg-gray-500 px-2"
+				class="w-full bg-gray-500 px-2"
 				ondblclick={toggle}
 			>
 				drag me! {collapsed ? "(closed)" : ""}
