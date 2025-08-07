@@ -3,6 +3,7 @@
 	import { db } from "$lib/client/db.js";
 	import Background from "$lib/components/Background.svelte";
 	import { isTruthy } from "$lib/utils.js";
+	import { Tabs } from "@skeletonlabs/skeleton-svelte";
 	import { useQueryOne } from "@triplit/svelte";
 
 	const { data } = $props();
@@ -13,6 +14,8 @@
 	$effect(() => {
 		if (isTruthy(live.result)) doc = live.result as DB["background"];
 	});
+
+	let group = $state("doc");
 </script>
 
 <svelte:head>
@@ -27,8 +30,37 @@
 	{/if}
 </svelte:head>
 
-{#if doc}
-	<Background {doc} />
-{:else}
-	Could not find the doc?!
-{/if}
+<Tabs
+	value={group} onValueChange={(e) => (group = e.value)}
+	listMargin=""
+	contentClasses="overflow-y-hidden"
+	classes="h-full flex flex-col"
+	listGap=""
+>
+	{#snippet list()}
+		<Tabs.Control
+			value="doc"
+			classes="pb-px!"
+			labelClasses="p-1 px-3 rounded-none rounded-t-base"
+		>
+			Background
+		</Tabs.Control>
+		<Tabs.Control
+			value="rules"
+			disabled
+			classes="pb-px!"
+			labelClasses="p-1 px-3 rounded-none rounded-t-base"
+		>
+			Quick Rules
+		</Tabs.Control>
+	{/snippet}
+	{#snippet content()}
+		<Tabs.Panel value="doc" classes="h-full">
+			{#if doc}
+				<Background {doc} />
+			{:else}
+				Could not find the doc?!
+			{/if}
+		</Tabs.Panel>
+	{/snippet}
+</Tabs>
