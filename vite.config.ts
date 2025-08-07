@@ -10,7 +10,18 @@ import "dotenv/config";
 export default defineConfig(({ mode }) => {
 	if (mode === "build") console.log(`Building for ${process.env.BUILD_STATIC ? "STATIC" : "NODE"}`);
 	return {
-		server: { fs: { allow: ["./triplit"] } },
+		server: {
+			fs: { allow: ["./triplit"] },
+			open: true,
+			warmup: {
+				clientFiles: [
+					"./src/lib/client/db.ts",
+				],
+				ssrFiles: [
+					"./src/routes/+layout.server.ts",
+				],
+			},
+		},
 		plugins: [
 			lucidePreprocess(),
 			tailwindcss(),
