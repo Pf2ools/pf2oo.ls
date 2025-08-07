@@ -47,20 +47,21 @@
 	}
 </script>
 
-<div class="grid background-pattern-cube grid-rows-[auto_1fr_auto] overflow-hidden">
+<div class="
+	min-h-dvh max-h-dvh min-w-dvw max-w-dvw
+	overflow-hidden grid background-pattern-cube grid-rows-[auto_1fr_auto]
+">
 	<!-- Header -->
 	<!-- <header class="bg-red-500 p-4 h-14">(header)</header> -->
 	<!-- Grid Column -->
-	<div class="
-		grid grid-cols-[auto_1fr_auto]
-	">
+	<div class="grid grid-cols-[auto_1fr_auto]">
 		<!-- Sidebar (Left) -->
 		<Navigation.Rail
 			expanded={isExpanded.current}
 			classes="transition-[width]"
 			padding=""
 			tilesGap=""
-			height="max-h-[calc(100vh)]"
+			height="min-h-dvh"
 			tilesClasses="overflow-y-auto scrollbar-none"
 			tilesJustify=""
 		>
@@ -120,7 +121,7 @@
 			{/snippet}
 		</Navigation.Rail>
 		<!-- Main -->
-		<main id="main" class="p-2 sm:p-4 h-[calc(100dvh-0rem)]">
+		<main id="main" class="p-2 sm:p-4 overflow-hidden">
 			{@render children()}
 			<div id="version-tag" class="absolute bottom-1 right-1 text-[0.55rem] text-gray-500/50 font-mono select-all">
 				V.{version} <a class="anchor" target="_blank" href="https://github.com/Pf2eToolsOrg/pf2oo.ls"><CodeXmlIcon size={12} class="inline-block pb-px"></CodeXmlIcon></a>
