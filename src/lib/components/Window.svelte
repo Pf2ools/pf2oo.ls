@@ -15,10 +15,10 @@
 	const { children, drag, draggableOptions, classes }: Props = $props();
 
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
-	// TODO: Fix too big windows causing overflows that are not handled by onResize (layout issue? :weary:)
+	// TODO: Fix resizing and then collapsing causing the resizer to just, stay there :weary:
 
 	let target: HTMLElement | undefined;
-	// eslint-disable-next-line unused-imports/no-unused-vars
+
 	let draggable: Draggable;
 
 	let width = $state() as number;
@@ -59,9 +59,22 @@
 
 	// Function to handle mouse movement during resize
 	function duringResize(e: MouseEvent) {
+		const container = (draggable.$scrollContainer as HTMLElement).getBoundingClientRect();
 		if (isResizing) {
-			width = initialElemWidth + (e.clientX - initialMouseX);
-			height = initialElemHeight + (e.clientY - initialMouseY);
+			width = Math.max(
+				100,
+				Math.min(
+					initialElemWidth + (e.clientX - initialMouseX),
+					container.width - draggable.containerPadding[0],
+				),
+			);
+			height = Math.max(
+				100,
+				Math.min(
+					initialElemHeight + (e.clientY - initialMouseY),
+					container.height - draggable.containerPadding[0],
+				),
+			);
 		}
 	}
 
@@ -83,8 +96,8 @@
 		base:flex base:flex-col relative
 		{classes}
 	"
-	style:width={ `${Math.max(width, 100)}px` }
-	style:height={ collapsed ? headerHeight : `${Math.max(height, 100)}px` }
+	style:width="{ width }px"
+	style:height={ collapsed ? headerHeight : `${height}px` }
 >
 	<header bind:clientHeight={ headerHeight }>
 		{#if drag}
@@ -103,12 +116,12 @@
 		<main class="h-full relative overflow-auto" transition:slide>
 			{@render children()}
 		</main>
-		<div
-			role="none"
-			class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
-			onmousedown={startResize}
-		>
-			<GripIcon size="12"></GripIcon>
-		</div>
 	{/if}
+	<div
+		role="none"
+		class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
+		onmousedown={startResize}
+	>
+		<GripIcon size="12"></GripIcon>
+	</div>
 </div>
