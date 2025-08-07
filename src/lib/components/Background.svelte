@@ -52,7 +52,7 @@
 				<span class="text-sm align-top">*</span>
 			{/if}
 			<!-- TODO: Convert to anchor once /sources is up -->
-			<span class="anchor inline-block text-xs align-top opacity-75 font-bold">
+			<span class="anchor inline-block text-xs align-top opacity-75 font-bold font-sans">
 				{doc.source.ID}
 			</span>
 		</header>
