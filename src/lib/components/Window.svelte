@@ -15,7 +15,6 @@
 	const { children, drag, draggableOptions, classes }: Props = $props();
 
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
-	// TODO: Fix resizing and then collapsing causing the resizer to just, stay there :weary:
 
 	let target: HTMLElement | undefined;
 
@@ -46,6 +45,13 @@
 	let initialMouseY = $state(0);
 	let initialElemWidth = $state(0);
 	let initialElemHeight = $state(0);
+
+	$effect(() => {
+		if (target && width === undefined && height === undefined) {
+			width = target.offsetWidth;
+			height = target.offsetHeight;
+		}
+	});
 
 	// Function to handle the start of resizing
 	function startResize(e: MouseEvent) {
@@ -84,7 +90,24 @@
 	}
 
 	let collapsed = $state(false);
-	let headerHeight = $state(8);
+	let preCollapseHeight = $state(48);
+	let preCollapseWidth = $state(48);
+
+	async function collapse() {
+		collapsed = true;
+		preCollapseHeight = height;
+		preCollapseWidth = width;
+	}
+
+	function expand() {
+		collapsed = false;
+		height = preCollapseHeight;
+		width = preCollapseWidth;
+	}
+
+	function toggle() {
+		collapsed ? expand() : collapse();
+	}
 </script>
 
 <svelte:window on:mousemove={ duringResize } on:mouseup={ endResize } />
@@ -93,20 +116,20 @@
 	bind:this={ target }
 	class="
 		base:w-1/3 base:overflow-auto
-		base:flex base:flex-col relative
+		base:flex base:flex-col
 		{classes}
 	"
 	style:width="{ width }px"
-	style:height={ collapsed ? headerHeight : `${height}px` }
+	style:height={ collapsed ? "min-content" : `${height}px` }
 >
-	<header bind:clientHeight={ headerHeight }>
+	<header class="select-none">
 		{#if drag}
 			{@render drag({ collapsed })}
 		{:else}
 			<div
 				role="none"
 				class="drag-handle w-full bg-gray-500 px-2"
-				ondblclick={() => collapsed = !collapsed}
+				ondblclick={toggle}
 			>
 				drag me! {collapsed ? "(closed)" : ""}
 			</div>
