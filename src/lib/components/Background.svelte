@@ -56,11 +56,12 @@
 				{doc.source.ID}
 			</span>
 		</header>
+		<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 		<section class="
-			flex-grow -mr-3 pr-0.5
+			flex-grow max-w-full
 			prose dark:prose-invert
 			prose-p:not-first:indent-8 prose-p:mb-1 prose-p:mt-0
-			overflow-y-auto scrollbar-thin scrollbar-stable
+			overflow-y-auto scrollbar-thin
 			text-justify
 		">
 			{#if doc.data?.entries}
