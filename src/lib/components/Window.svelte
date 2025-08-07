@@ -11,8 +11,9 @@
 		drag?: Snippet<[{ collapsed: boolean }]>;
 		draggableOptions?: DraggableParams;
 		classes?: string;
+		resizeable?: boolean;
 	};
-	const { children, drag, draggableOptions, classes }: Props = $props();
+	const { children, drag, draggableOptions, classes, resizeable = true }: Props = $props();
 
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
 
@@ -31,6 +32,7 @@
 			containerPadding: [4, 4, 4, 4],
 			velocityMultiplier: 0.2,
 			onResize: (self) => {
+				if (!resizeable) return;
 				const container = (self.$scrollContainer as HTMLElement).getBoundingClientRect();
 				width = Math.min(container.width - self.containerPadding[0] * 2.5, width);
 				height = Math.min(container.height - self.containerPadding[0] * 2.5, height);
@@ -66,6 +68,7 @@
 
 	// Function to handle mouse movement during resize
 	function duringResize(e: MouseEvent) {
+		if (!resizeable) return;
 		const container = (draggable.$scrollContainer as HTMLElement).getBoundingClientRect();
 		if (isResizing) {
 			width = Math.max(
@@ -141,11 +144,13 @@
 			{@render children()}
 		</main>
 	{/if}
-	<div
-		role="none"
-		class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
-		onmousedown={startResize}
-	>
-		<GripIcon size="12"></GripIcon>
-	</div>
+	{#if resizeable}
+		<div
+			role="none"
+			class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
+			onmousedown={startResize}
+		>
+			<GripIcon size="12"></GripIcon>
+		</div>
+	{/if}
 </div>
