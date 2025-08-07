@@ -13,6 +13,12 @@
 	scrollbar-color: var(--color-primary-100-900) rgba(0, 0, 0, 0);
 }
 
+@custom-variant base {
+	@layer base {
+		@slot;
+	}
+}
+
 @utility scrollbar-none {
 	@apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
