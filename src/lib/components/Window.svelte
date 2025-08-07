@@ -20,6 +20,7 @@
 		controls({ allow: ControlFrom.selector(".drag-handle") }),
 		bounds(BoundsFrom.viewport()),
 	])}
+	class="resize overflow-auto absolute w-1/3 flex flex-col"
 >
 	<div class="drag-handle w-full bg-gray-500">
 		drag me!

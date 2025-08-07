@@ -53,6 +53,14 @@
 		>
 			Quick Rules
 		</Tabs.Control>
+		<Tabs.Control
+			value="images"
+			disabled
+			classes="pb-px!"
+			labelClasses="p-1 px-3 rounded-none rounded-t-base"
+		>
+			Images
+		</Tabs.Control>
 	{/snippet}
 	{#snippet content()}
 		<Tabs.Panel value="doc" classes="h-full">
