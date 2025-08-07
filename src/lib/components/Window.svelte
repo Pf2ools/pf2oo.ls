@@ -77,7 +77,7 @@
 	bind:this={ target }
 	class="
 		base:w-1/3 base:overflow-auto
-		base:flex base:flex-col
+		base:flex base:flex-col relative
 		{classes}
 	"
 	style:width={ `${Math.max(width, 100)}px` }
