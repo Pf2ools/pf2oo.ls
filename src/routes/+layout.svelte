@@ -42,7 +42,8 @@
 		},
 	*/
 	];
-	if (dev) {
+	$inspect(page.url.origin);
+	if (dev || page.url.origin.includes("github")) {
 		links.push({ label: "Demos", href: "/demos", icon: FolderCodeIcon, labelExpanded: "Browse demos" });
 	}
 </script>
