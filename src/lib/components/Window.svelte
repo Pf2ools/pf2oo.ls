@@ -14,6 +14,9 @@
 	};
 	const { children, drag, draggableOptions, classes }: Props = $props();
 
+	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
+	// TODO: Fix too big windows causing overflows that are not handled by onResize (layout issue? :weary:)
+
 	let target: HTMLElement | undefined;
 	// eslint-disable-next-line unused-imports/no-unused-vars
 	let draggable: Draggable;
