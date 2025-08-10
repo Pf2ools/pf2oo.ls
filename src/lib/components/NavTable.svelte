@@ -54,12 +54,12 @@
 		{@const current = decodeURIComponent(page.params.doc!) === doc.id}
 		<a
 			id={doc.id}
-			class="hover:bg-amber-500/25"
+			class="hover:bg-amber-500/25 last:[&>*]:border-b-0"
 			oncontextmenu={(ev) => popout(ev)}
 			href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 		>
 			<div
-				class="hover:bg-amber-500/25 grid {gridCols}"
+				class="hover:bg-amber-500/25 grid border-b border-solid border-primary-300/33 {gridCols}"
 				class:bg-amber-300={ current }
 				class:dark:bg-amber-800={ current }
 			>
