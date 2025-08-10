@@ -1,4 +1,4 @@
-<main class="container mx-auto p-16 grid grid-cols-2 gap-2">
+<main class="container mx-auto p-2 sm:p-16 grid sm:grid-cols-2 gap-2">
 	<div class="grid gap-2">
 		<div class="pf2e-card p-2 rounded space-y-2 text-justify">
 			<h1 class="font-sans h4 text-center">Welcome to pf2ools!</h1>

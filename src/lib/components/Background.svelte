@@ -20,7 +20,7 @@
 	<svelte:boundary>
 		<header class="text-nowrap">
 			{#if !doc.name.aliases}
-				<span class="h4 text-ellipsis overflow-hidden max-w-11/12">
+				<span class="h4 text-ellipsis overflow-hidden max-w-10/12">
 					{@render title()}
 				</span>
 			{:else}
@@ -28,7 +28,7 @@
 					open={openState}
 					onOpenChange={(e) => (openState = e.open)}
 					positioning={{ placement: "bottom" }}
-					triggerBase="h4 text-ellipsis overflow-hidden max-w-11/12"
+					triggerBase="h4 text-ellipsis overflow-hidden max-w-10/12"
 					contentBase="card preset-filled p-2 px-4 text-sm"
 					openDelay={200}
 					closeDelay={300}
