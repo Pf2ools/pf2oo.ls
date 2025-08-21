@@ -30,7 +30,7 @@
 		draggable = createDraggable(target, {
 			trigger: dragHandle,
 			container: "#main",
-			containerPadding: [4, 4, 4, 4],
+			containerPadding: [12, 12, 12, 12],
 			velocityMultiplier: 0.2,
 			onResize: (self) => {
 				if (!resizeable) return;
@@ -126,7 +126,7 @@
 		base:flex base:flex-col absolute
 		{classes}
 	"
-	style:width="{ width }px"
+	style:width={ collapsed ? "16rem" : `${width}px` }
 	style:height={ collapsed ? "min-content" : `${height}px` }
 >
 	<header class="select-none" bind:this={ dragHandle }>
@@ -143,17 +143,19 @@
 		{/if}
 	</header>
 	{#if !collapsed}
-		<main class="h-full relative overflow-auto" transition:slide>
-			{@render children()}
-		</main>
-	{/if}
-	{#if resizeable}
-		<div
-			role="none"
-			class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
-			onmousedown={startResize}
-		>
-			<GripIcon size="12"></GripIcon>
+		<div class="h-full relative overflow-hidden" transition:slide>
+			<main class="h-full relative overflow-auto">
+				{@render children()}
+			</main>
+			{#if resizeable}
+				<div
+					role="none"
+					class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
+					onmousedown={startResize}
+				>
+					<GripIcon size="12"></GripIcon>
+				</div>
+			{/if}
 		</div>
 	{/if}
 </div>

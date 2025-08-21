@@ -119,7 +119,7 @@
 			{/snippet}
 		</Navigation.Rail>
 		<!-- Main -->
-		<main id="main" class="p-2 sm:p-4 overflow-hidden overflow-y-scroll">
+		<main id="main" class="p-2 sm:p-4 overflow-hidden overflow-y-auto">
 			{@render children()}
 			<div id="version-tag" class="absolute bottom-1 right-1 text-[0.55rem] text-gray-500/50 font-mono select-all">
 				V.{version} <a class="anchor" target="_blank" href="https://github.com/Pf2eToolsOrg/pf2oo.ls"><CodeXmlIcon size={12} class="inline-block pb-px"></CodeXmlIcon></a>

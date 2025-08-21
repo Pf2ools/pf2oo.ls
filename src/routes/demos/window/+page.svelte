@@ -3,17 +3,17 @@
 </script>
 
 <Window>
-	<div class="pf2e-card p-2 space-y-2 text-justify h-full">
+	<div class="pf2e-card opaque p-2 space-y-2 text-justify h-full">
 		<h1 class="font-sans h4 text-center">Check these windows out!</h1>
 		<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 		<p>
-			This one is draggable!
+			This one is resizeable!
 		</p>
 	</div>
 </Window>
 
-<Window resizeable={false}>
-	<div class="pf2e-card p-2 space-y-2 text-justify h-full">
+<Window resizeable={false} classes="right-0">
+	<div class="pf2e-card glass p-2 space-y-2 text-justify h-full">
 		<h1 class="font-sans h4 text-center">Welcome to pf2ools!</h1>
 		<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 		<p>
