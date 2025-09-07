@@ -54,7 +54,23 @@ export class MarkdownRenderer extends Renderer {
 	}
 
 	renderTag(type: string, content: string, _extra?: string[]): string {
-		return content; // Strip tags completely
+		switch (type) {
+			case "b":
+			case "bold":
+				return `**${content}**`;
+			case "i":
+			case "italic":
+				return `*${content}*`;
+			case "code":
+				return `\`${content}\``;
+			case "link":
+				if (_extra && _extra[0]) {
+					return `[${content}](${_extra[0]})`;
+				}
+				return content;
+			default:
+				return content;
+		}
 	}
 
 	renderObject(_obj: object) {
