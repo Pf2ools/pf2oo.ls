@@ -1,0 +1,15 @@
+/* Ensure base styles are included */
+@reference "../../app.css";
+
+/* Everything inside HTMLRenderer output */
+.pf2ools-content {
+	& .tag-i,
+	& .tag-italic {
+		@apply italic;
+	}
+	& .tag-feat,
+	& .tag-deity,
+	& .tag-skill {
+		@apply anchor;
+	}
+}

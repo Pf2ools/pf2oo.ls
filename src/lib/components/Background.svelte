@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { HTMLRenderer } from "$lib/entryRenderer";
 	import { Tooltip } from "@skeletonlabs/skeleton-svelte";
 
 	type Props = {
@@ -7,6 +8,8 @@
 	const { doc }: Props = $props();
 
 	let openState = $state(false);
+
+	const htmlRenderer = new HTMLRenderer();
 </script>
 
 {#snippet title()}
@@ -65,9 +68,8 @@
 			text-justify
 		">
 			{#if doc.data?.entries}
-				{#each doc.data.entries as entry}
-					<p>{entry}</p>
-				{/each}
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html htmlRenderer.render(doc.data.entries)}
 			{/if}
 		</section>
 
