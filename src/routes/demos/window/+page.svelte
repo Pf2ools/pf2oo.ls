@@ -5,9 +5,9 @@
 
 	type StyleStates = "none" | "opaque" | "glass";
 	const cardStyle = new FiniteStateMachine<StyleStates, "toggle">("none", {
-		opaque: { toggle: "glass" },
-		glass: { toggle: "none" },
-		none: { toggle: "opaque" },
+		none: { toggle: "opaque" }, // from none (default) to opaque
+		opaque: { toggle: "glass" }, // from opaque to glass
+		glass: { toggle: "none" }, // from glass to none
 	});
 </script>
 
@@ -20,16 +20,18 @@
 		},
 	]}
 >
-	<div class="pf2e-card {cardStyle.current} p-2 space-y-2 text-justify h-full">
-		<h1 class="font-sans h4 text-center">Check these windows out!</h1>
-		<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
-		<p>
-			This one is resizeable!
-			{#if cardStyle.current !== "none"}
-				And its current style is "{cardStyle.current}."
-			{/if}
-		</p>
-	</div>
+	{#snippet children({ isResizing, width, height })}
+		<div class="pf2e-card {cardStyle.current} p-2 space-y-2 text-justify h-full">
+			<h1 class="font-sans h4 text-center">Check these windows out!</h1>
+			<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
+			<p>
+				This one is resizeable{#if isResizing}&nbsp;like right now! {:else}!{/if} <span class="font-mono text-sm">({width}px x {height}px)</span>
+				{#if cardStyle.current !== "none"}
+					And its current style is "{cardStyle.current}."
+				{/if}
+			</p>
+		</div>
+	{/snippet}
 </Window>
 
 <Window resizeable={false} classes="right-0">

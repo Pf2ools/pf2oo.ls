@@ -7,7 +7,16 @@
 	import { slide } from "svelte/transition";
 
 	type Props = {
-		children: Snippet<[]>;
+		children: Snippet<[{
+			isResizing: boolean;
+			width: number;
+			height: number;
+			draggable: Draggable;
+			collapsed: boolean;
+			collapse: () => Promise<void>;
+			expand: () => void;
+			toggle: () => void;
+		}]>;
 		drag?: Snippet<[{ collapsed: boolean }]>;
 		draggableOptions?: DraggableParams;
 		classes?: string;
@@ -22,6 +31,7 @@
 	let target: HTMLElement | undefined;
 	let dragHandle: HTMLElement | undefined;
 
+	// svelte-ignore non_reactive_update
 	let draggable: Draggable;
 
 	let width = $state() as number;
@@ -158,7 +168,7 @@
 	{#if !collapsed}
 		<div class="h-full relative overflow-hidden" transition:slide>
 			<main class="h-full relative overflow-auto">
-				{@render children()}
+				{@render children({ isResizing, width, height, draggable, collapsed, collapse, expand, toggle })}
 			</main>
 			{#if resizeable}
 				<div
