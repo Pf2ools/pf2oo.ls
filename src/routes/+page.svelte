@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Frontpage | pf2ools</title>
+	<meta property="title" content="Frontpage | pf2ools" />
+</svelte:head>
+
 <main class="container mx-auto p-2 sm:p-16 grid sm:grid-cols-2 gap-2">
 	<div class="grid gap-2">
 		<div class="pf2e-card glass p-2 rounded space-y-2 text-justify">
