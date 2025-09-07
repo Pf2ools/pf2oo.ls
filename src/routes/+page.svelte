@@ -1,13 +1,13 @@
 <main class="container mx-auto p-2 sm:p-16 grid sm:grid-cols-2 gap-2">
 	<div class="grid gap-2">
-		<div class="pf2e-card p-2 rounded space-y-2 text-justify">
+		<div class="pf2e-card glass p-2 rounded space-y-2 text-justify">
 			<h1 class="font-sans h4 text-center">Welcome to pf2ools!</h1>
 			<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 			<p>
 				This website is a work in progress. What it once aims to do is be an all-encompassing wiki for all things to do with the Pathfinder 2e ruleset. Much akin to <a class="anchor" target="_blank" href="https://2e.aonprd.com/">Archives of Nethys</a>. But newer, more modern. <span class="text-xs text-white/15">Maybe even a character sheet one day.</span>
 			</p>
 		</div>
-		<div class="pf2e-card p-2 rounded space-y-2 text-justify">
+		<div class="pf2e-card glass p-2 rounded space-y-2 text-justify">
 			<h1 class="font-sans h4 text-center">Ok but how do I host this?</h1>
 			<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 			<p>
@@ -16,14 +16,14 @@
 		</div>
 	</div>
 	<div class="grid gap-2">
-		<div class="pf2e-card p-2 rounded space-y-2 text-justify">
+		<div class="pf2e-card glass p-2 rounded space-y-2 text-justify">
 			<h1 class="font-sans h4 text-center">Support</h1>
 			<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 			<p>
 				If you are eager to see this project being continued, feel free to throw a <a class="anchor" target="_blank" href="https://ko-fi.com/mrvauxs">ko-fi</a> to its creator! Otherwise, word of mouth is a great substitute.
 			</p>
 		</div>
-		<div class="pf2e-card p-2 rounded space-y-2 text-justify">
+		<div class="pf2e-card glass p-2 rounded space-y-2 text-justify">
 			<h1 class="font-sans h4 text-center">Contributing Code</h1>
 			<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 			<p>
