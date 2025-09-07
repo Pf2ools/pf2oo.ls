@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Draggable, DraggableParams } from "animejs";
-	import type { Snippet } from "svelte";
+	import type { Component, Snippet } from "svelte";
 	import { GripIcon } from "@lucide/svelte";
 	import { createDraggable } from "animejs";
 	import { onMount } from "svelte";
@@ -12,10 +12,12 @@
 		draggableOptions?: DraggableParams;
 		classes?: string;
 		resizeable?: boolean;
+		headerButtons?: { title: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
 	};
-	const { children, drag, draggableOptions, classes, resizeable = true }: Props = $props();
+	const { children, drag, draggableOptions, classes, resizeable = true, headerButtons }: Props = $props();
 
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
+	// One benefit is it works without having to actually have your mouse on the resizer (re: Foundry V13)
 
 	let target: HTMLElement | undefined;
 	let dragHandle: HTMLElement | undefined;
@@ -49,6 +51,7 @@
 		// Probably not needed but might as well?
 		return () => {
 			draggable.disable();
+			target?.remove();
 		};
 	});
 
@@ -133,13 +136,23 @@
 		{#if drag}
 			{@render drag({ collapsed })}
 		{:else}
-			<div
+			<section
 				role="none"
-				class="w-full bg-gray-500 px-2"
+				class="w-full bg-gray-500 px-2 flex gap-2"
 				ondblclick={toggle}
 			>
-				drag me! {collapsed ? "(closed)" : ""}
-			</div>
+				<header>
+					drag me! {collapsed ? "(closed)" : ""}
+				</header>
+				<div class="ml-auto hover:underline">
+					{#each headerButtons || [] as { title, onclick, icon: Icon }}
+						<button class="flex gap-0.5 items-center" {onclick} ondblclick={(ev) => ev.stopPropagation()}>
+							<Icon size={16} />
+							{title}
+						</button>
+					{/each}
+				</div>
+			</section>
 		{/if}
 	</header>
 	{#if !collapsed}

@@ -59,16 +59,18 @@
 			classes="transition-[width]"
 			padding=""
 			tilesGap=""
+			headerGap=""
 			height="min-h-dvh"
 			tilesClasses="overflow-y-auto scrollbar-none"
 			tilesJustify=""
 		>
 			{#snippet header()}
 				<Navigation.Tile
+					classes="flex-col justify-center h-12"
+					rounded=""
 					title="Menu"
 					labelExpanded="Shrink Menu"
 					onclick={() => { isExpanded.current = !isExpanded.current; }}
-					classes="flex-col justify-center h-12"
 				>
 					<MenuIcon />
 				</Navigation.Tile>
@@ -77,8 +79,8 @@
 					active="preset-tonal-primary"
 					rounded=""
 					label="Home"
-					href={resolve("/")}
 					labelExpanded="Home"
+					href={resolve("/")}
 					selected={page.url.pathname === resolve("/")}
 				>
 					<HouseIcon></HouseIcon>
