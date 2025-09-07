@@ -58,6 +58,7 @@
 			);
 		}
 
+		/* This seems to cause weird scrollbar behavior where if you resize the styled card, it doesn't know how to calculate it until it stops. */
 		&::before {
 			margin: calc(-1 * var(--border-width));
 		}
@@ -80,6 +81,7 @@
 			);
 		}
 
+		/* This seems to cause weird scrollbar behavior where if you resize the styled card, it doesn't know how to calculate it until it stops. */
 		&::before {
 			margin: calc(-1 * var(--border-width));
 		}
