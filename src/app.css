@@ -38,6 +38,7 @@
 @utility pf2e-card {
 	--border-width: 1px;
 	--border: var(--border-width) solid transparent;
+	--degrees: 160deg;
 
 	--background: light-dark(var(--color-surface-100), var(--color-surface-900));
 
@@ -45,22 +46,17 @@
 		@apply sm:backdrop-blur-xs max-sm:bg-surface-100-900;
 
 		--background: linear-gradient(
-			160deg,
+			var(--degrees),
 			--alpha(var(--color-surface-300) / 0.25),
 			--alpha(var(--color-surface-200) / 0.15)
 		);
 
 		@variant dark {
 			--background: linear-gradient(
-				160deg,
+				var(--degrees),
 				--alpha(var(--color-surface-600) / 0.5),
 				--alpha(var(--color-surface-800) / 0.35)
 			);
-		}
-
-		/* This seems to cause weird scrollbar behavior where if you resize the styled card, it doesn't know how to calculate it until it stops. */
-		&::before {
-			margin: calc(-1 * var(--border-width));
 		}
 	}
 
@@ -68,22 +64,17 @@
 		@apply sm:backdrop-blur-sm max-sm:bg-surface-100-900;
 
 		--background: linear-gradient(
-			160deg,
+			var(--degrees),
 			--alpha(var(--color-surface-300) / 0.25),
 			--alpha(var(--color-surface-200) / 0.15)
 		);
 
 		@variant dark {
 			--background: linear-gradient(
-				160deg,
+				var(--degrees),
 				--alpha(var(--color-surface-600) / 1),
 				--alpha(var(--color-surface-800) / 0.8)
 			);
-		}
-
-		/* This seems to cause weird scrollbar behavior where if you resize the styled card, it doesn't know how to calculate it until it stops. */
-		&::before {
-			margin: calc(-1 * var(--border-width));
 		}
 	}
 
@@ -101,7 +92,7 @@
 		inset: 0;
 		border-radius: inherit;
 		border: var(--border);
-		background: linear-gradient(160deg, var(--color-surface-400), var(--color-surface-500)) border-box;
+		background: linear-gradient(var(--degrees), var(--color-surface-400), var(--color-surface-500)) border-box;
 		mask:
 			linear-gradient(black, black) border-box,
 			linear-gradient(black, black) padding-box;
