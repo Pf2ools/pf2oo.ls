@@ -80,6 +80,7 @@
 
 	background: var(--background);
 	border: var(--border);
+	border-radius: var(--radius-xs, 0.125rem);
 
 	&:not(.opaque):not(.glass) {
 		border: var(--border-width) solid light-dark(var(--color-surface-300), var(--color-surface-700));
