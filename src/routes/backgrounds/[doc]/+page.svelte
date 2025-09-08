@@ -4,7 +4,7 @@
 	import Background from "$lib/components/Background.svelte";
 	import { isTruthy } from "$lib/utils.js";
 	import { EllipsisVertical } from "@lucide/svelte";
-	import { Popover, Tabs, Tooltip } from "@skeletonlabs/skeleton-svelte";
+	import { Popover, Tabs } from "@skeletonlabs/skeleton-svelte";
 	import { useQueryOne } from "@triplit/svelte";
 
 	const { data } = $props();
@@ -66,12 +66,12 @@
 		<Popover
 			open={openState}
 			onOpenChange={(e) => (openState = e.open)}
-			positioning={{ placement: "bottom" }}
+			positioning={{ placement: "bottom-end", offset: { mainAxis: 0 } }}
 			classes="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5"
 			triggerBase="p-1 opacity-50 hover:opacity-100"
-			contentBase="pf2e-card rounded-xs p-2 px-4 text-sm"
+			contentBase="pf2e-card rounded-xs p-2 px-4 text-sm drop-shadow-md"
 			arrow
-			arrowClasses="bg-surface-100-900! border-t border-l border-surface-300-700"
+			arrowClasses="bg-surface-100-900! border-t border-l border-surface-400-600"
 		>
 			{#snippet trigger()}
 				<EllipsisVertical size={20}></EllipsisVertical>
