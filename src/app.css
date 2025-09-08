@@ -82,7 +82,7 @@
 	border: var(--border);
 
 	&:not(.opaque):not(.glass) {
-		border: var(--border-width) solid light-dark(var(--color-surface-300), var(--color-surface-600));
+		border: var(--border-width) solid light-dark(var(--color-surface-300), var(--color-surface-700));
 	}
 
 	&::before {
