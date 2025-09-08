@@ -10,10 +10,9 @@
 		docs: DB[DocType][];
 		row?: Snippet<[{ doc: DB[DocType] }]>;
 		gridCols?: string;
-		navigateOnMount?: boolean;
 	};
-	// eslint-disable-next-line unused-imports/no-unused-vars
-	const { docs, row, gridCols = "grid-cols-2", navigateOnMount = false }: Props = $props();
+
+	const { docs, row, gridCols = "grid-cols-2" }: Props = $props();
 	const table = new TableHandler(docs, { selectBy: "id" });
 
 	function moveKeys(event: KeyboardEvent) {
@@ -36,7 +35,7 @@
 				const anchor = el?.nextElementSibling as HTMLAnchorElement;
 				event.preventDefault();
 				anchor?.click();
-				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
+				anchor?.scrollIntoView({ behavior: "auto", block: "nearest" });
 				break;
 			}
 			case "ArrowUp":
@@ -44,7 +43,7 @@
 				const anchor = el?.previousElementSibling as HTMLAnchorElement;
 				event.preventDefault();
 				anchor?.click();
-				anchor?.scrollIntoView({ behavior: "auto", block: "center" });
+				anchor?.scrollIntoView({ behavior: "auto", block: "nearest" });
 				break;
 			}
 		}
@@ -56,45 +55,47 @@
 		event.preventDefault(); // stop context menu
 	}
 
-	const search = table.createSearch();
+	const search = table.createSearch(["name"]);
 </script>
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
-<div class="flex border-b border-solid border-primary-300/33">
-	<button class="btn-icon"><Search size={20}></Search></button>
-	<input
-		class="input rounded-none text-sm"
-		placeholder="Search..." type="search"
-		bind:value={ search.value } oninput={() => search.set()}
-	/>
-</div>
+<div class="flex h-full flex-col">
+	<div class="flex border-b border-solid border-primary-300/33 sticky top-0">
+		<button class="btn-icon"><Search size={20}></Search></button>
+		<input
+			class="input rounded-none text-sm"
+			placeholder="Search..." type="search"
+			bind:value={ search.value } oninput={() => search.set()}
+		/>
+	</div>
 
-<div class="overflow-y-scroll h-full p-2">
-	{#each table.rows as doc (doc.id)}
-		{@const current = decodeURIComponent(page.params.doc!) === doc.id}
-		<a
-			id={doc.id}
-			class="hover:bg-amber-500/25 last:[&>*]:border-b-0"
-			oncontextmenu={(ev) => popout(ev)}
-			href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
-		>
-			<div
-				class="hover:bg-amber-500/25 grid border-b border-solid border-primary-300/33 {gridCols}"
+	<div class="overflow-y-scroll h-full">
+		{#each table.rows as doc (doc.id)}
+			{@const current = decodeURIComponent(page.params.doc!) === doc.id}
+			<a
+				id={doc.id}
+				class="block hover:bg-amber-500/25 last:[&>*]:border-b-0 px-2"
+				oncontextmenu={(ev) => popout(ev)}
+				href={resolve(`/${doc.type}s/[doc]`, { doc: doc.id })}
 				class:bg-amber-300={ current }
 				class:dark:bg-amber-800={ current }
 			>
-				{#if row}
-					{@render row({ doc })}
-				{:else}
-					<div class="basis-1/2 justify-self-start">
-						{doc.name.primary}
-					</div>
-					<div class="basis-1/2 justify-self-end">
-						{doc.source.ID}
-					</div>
-				{/if}
-			</div>
-		</a>
-	{/each}
+				<div
+					class="grid {gridCols}"
+				>
+					{#if row}
+						{@render row({ doc })}
+					{:else}
+						<div class="basis-1/2 justify-self-start">
+							{doc.name.primary}
+						</div>
+						<div class="basis-1/2 justify-self-end font-sans text-sm">
+							{doc.source.ID}
+						</div>
+					{/if}
+				</div>
+			</a>
+		{/each}
+	</div>
 </div>
