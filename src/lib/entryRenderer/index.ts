@@ -32,9 +32,20 @@ export class HTMLRenderer extends Renderer {
 
 	// TODO: EXPAND
 	renderTag(type: string, content: string, _extra?: string[]): string {
-		const title = _extra ? `title="${_extra.join(" ")}"` : "";
 		const className = `tag tag-${type}`;
-		return `<span class="${className}" ${title}>${content}</span>`;
+
+		switch (type) {
+			case "b":
+			case "bold":
+				return `<strong>${content}</strong>`;
+			case "i":
+			case "italic":
+				return `<em>${content}</em>`;
+			case "code":
+				return `<code>${content}</code>`;
+			default:
+				return `<span class="${className} unsupported">${_extra?.[1] || content}</span>`;
+		}
 	}
 
 	// TODO: EXPAND
@@ -63,11 +74,6 @@ export class MarkdownRenderer extends Renderer {
 				return `*${content}*`;
 			case "code":
 				return `\`${content}\``;
-			case "link":
-				if (_extra && _extra[0]) {
-					return `[${content}](${_extra[0]})`;
-				}
-				return content;
 			default:
 				return content;
 		}
