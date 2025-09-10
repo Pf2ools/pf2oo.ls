@@ -2,6 +2,7 @@
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db.js";
 	import Background from "$lib/components/Background.svelte";
+	import BackgroundForm from "$lib/components/BackgroundForm.svelte";
 	import { isTruthy } from "$lib/utils.js";
 	import { EllipsisVertical } from "@lucide/svelte";
 	import { Popover, Tabs } from "@skeletonlabs/skeleton-svelte";
@@ -16,7 +17,8 @@
 		if (isTruthy(live.result)) doc = live.result as DB["background"];
 	});
 
-	let group = $state("doc");
+	type Tabs = "doc" | "new";
+	let group: Tabs = $state("doc");
 	let openState = $state(false);
 </script>
 
@@ -33,8 +35,8 @@
 </svelte:head>
 
 <Tabs
-	value={group} onValueChange={(e) => (group = e.value)}
-	listMargin=""
+	value={group} onValueChange={(e) => (group = e.value as Tabs)}
+	listMargin="pl-0.5"
 	contentClasses="overflow-y-hidden"
 	classes="h-full flex flex-col"
 	listGap=""
@@ -42,7 +44,7 @@
 	{#snippet list()}
 		<Tabs.Control
 			value="doc"
-			classes="pb-px!"
+			padding="pb-px"
 			labelClasses="p-1 px-3 rounded-none rounded-t-base"
 		>
 			Background
@@ -50,7 +52,7 @@
 		<Tabs.Control
 			value="rules"
 			disabled
-			classes="pb-px!"
+			padding="pb-px"
 			labelClasses="p-1 px-3 rounded-none rounded-t-base"
 		>
 			Quick Rules
@@ -58,7 +60,7 @@
 		<Tabs.Control
 			value="images"
 			disabled
-			classes="pb-px!"
+			padding="pb-px"
 			labelClasses="p-1 px-3 rounded-none rounded-t-base"
 		>
 			Images
@@ -71,7 +73,8 @@
 			triggerBase="p-1 opacity-50 hover:opacity-100"
 			contentBase="pf2e-card rounded-xs p-2 px-4 text-sm drop-shadow-md"
 			arrow
-			arrowClasses="bg-surface-100-900! border-t border-l border-surface-400-600"
+			arrowClasses="border-t border-l border-surface-400-600"
+			arrowBackground="var(--color-surface-100-900)"
 		>
 			{#snippet trigger()}
 				<EllipsisVertical size={20}></EllipsisVertical>
@@ -82,12 +85,27 @@
 		</Popover>
 	{/snippet}
 	{#snippet content()}
-		<Tabs.Panel value="doc" classes="h-full">
+		<Tabs.Panel value="doc" classes="h-full flex flex-col gap-2 items-center">
 			{#if doc}
 				<Background {doc} />
 			{:else}
 				Could not find the doc?!
 			{/if}
+			<button
+				class="btn preset-filled-success-100-900 btn-sm w-min"
+				onclick={() => (group = "new")}
+			>
+				Create New
+			</button>
+		</Tabs.Panel>
+		<Tabs.Panel value="new" classes="h-full flex flex-col gap-2 items-center">
+			<BackgroundForm />
+			<button
+				class="btn preset-filled-warning-50-950 btn-sm w-min"
+				onclick={() => (group = "doc")}
+			>
+				Go Back
+			</button>
 		</Tabs.Panel>
 	{/snippet}
 </Tabs>
