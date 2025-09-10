@@ -4,8 +4,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "bunx --bun vite dev",
-		"build": "bunx --bun vite build",
+		"dev": "bunx vite dev",
+		"build": "bunx vite build",
 		"preview:node": "bun build/_node",
 		"preview:static": "bunx http-server ./build -c-1 -d false -s -o",
 		"prepare": "svelte-kit sync || echo ''",
@@ -52,6 +52,7 @@
 		"runed": "^0.31.1",
 		"svelte": "^5.37.3",
 		"svelte-check": "^4.3.1",
+		"sveltekit-superforms": "^2.27.1",
 		"tailwindcss": "^4.1.11",
 		"typescript": "^5.9.2",
 		"typescript-eslint": "^8.39.0",
@@ -60,6 +61,6 @@
 		"vite-plugin-lucide-preprocess": "^1.4.2",
 		"vitest": "^3.2.4",
 		"vitest-browser-svelte": "^1.0.0",
-		"zod": "^4.0.14"
+		"zod": "^4.1.5"
 	}
 }
