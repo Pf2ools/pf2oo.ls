@@ -55,6 +55,7 @@
 		event.preventDefault(); // stop context menu
 	}
 
+	// TODO: Search is not recursive nor works great with regex. Probably replace datatables with in-house solution.
 	const search = table.createSearch(["name"]);
 </script>
 
