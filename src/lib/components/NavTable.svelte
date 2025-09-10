@@ -60,7 +60,7 @@
 
 <svelte:window onkeydown={moveKeys}></svelte:window>
 
-<div class="flex h-full flex-col">
+<div class="flex h-full flex-col p-px">
 	<div class="flex border-b border-solid border-primary-300/33 sticky top-0">
 		<button class="btn-icon"><Search size={20}></Search></button>
 		<input
