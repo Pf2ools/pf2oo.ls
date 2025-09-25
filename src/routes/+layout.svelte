@@ -49,7 +49,7 @@
 	}
 </script>
 
-<WindowManager windows={windowManager} />
+<WindowManager {windowManager} />
 
 <div class="overflow-hidden grid background-pattern-cube grid-rows-[auto_1fr_auto]">
 	<!-- Header -->

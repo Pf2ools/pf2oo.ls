@@ -23,7 +23,7 @@
 		draggableOptions?: DraggableParams;
 		classes?: string;
 		resizeable?: boolean;
-		headerButtons?: { title: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
+		headerButtons?: { title?: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
 	};
 	const { children, drag, draggableOptions, classes, resizeable = true, headerButtons }: WindowProps = $props();
 
@@ -139,6 +139,7 @@
 	class="
 		base:w-1/3 base:overflow-auto
 		base:flex base:flex-col absolute
+		base:z-10
 		{classes}
 	"
 	style:width={ collapsed ? "16rem" : `${width}px` }
@@ -156,10 +157,16 @@
 				<header>
 					drag me! {collapsed ? "(closed)" : ""}
 				</header>
-				<div class="ml-auto hover:underline">
+				<div class="ml-auto [&>*]:hover:underline flex gap-2">
 					{#each headerButtons || [] as { title, onclick, icon: Icon }}
-						<button class="flex gap-0.5 items-center" {onclick} ondblclick={(ev) => ev.stopPropagation()}>
-							<Icon size={16} />
+						<button
+							class="flex gap-0.5 items-center"
+							{onclick}
+							ondblclick={(ev) => ev.stopPropagation()}
+						>
+							{#if Icon}
+								<Icon size={16} />
+							{/if}
 							{title}
 						</button>
 					{/each}

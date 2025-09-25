@@ -29,6 +29,15 @@
 
 <button class="btn m-4 preset-filled-primary-500" onclick={createWindow}>Open a new window!</button>
 
+<p>
+	There are now {windowManager.windows.size} window(s) open.
+</p>
+<ul>
+	{#each windowManager.windows as [id] (id)}
+		<li>{id}</li>
+	{/each}
+</ul>
+
 {#snippet children({ isResizing, width, height }: ContentProps)}
 	<div class="pf2e-card {cardStyle.current} p-2 space-y-2 text-justify h-full">
 		<h1 class="font-sans h4 text-center">Check these windows out!</h1>
