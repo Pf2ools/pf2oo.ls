@@ -6,24 +6,26 @@
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 
-	type Props = {
-		children: Snippet<[{
-			isResizing: boolean;
-			width: number;
-			height: number;
-			draggable: Draggable;
-			collapsed: boolean;
-			collapse: () => Promise<void>;
-			expand: () => void;
-			toggle: () => void;
-		}]>;
+	export type ContentProps = {
+		isResizing: boolean;
+		width: number;
+		height: number;
+		draggable: Draggable;
+		collapsed: boolean;
+		collapse: () => Promise<void>;
+		expand: () => void;
+		toggle: () => void;
+	};
+
+	export type WindowProps = {
+		children: Snippet<[ContentProps]>;
 		drag?: Snippet<[{ collapsed: boolean }]>;
 		draggableOptions?: DraggableParams;
 		classes?: string;
 		resizeable?: boolean;
 		headerButtons?: { title: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
 	};
-	const { children, drag, draggableOptions, classes, resizeable = true, headerButtons }: Props = $props();
+	const { children, drag, draggableOptions, classes, resizeable = true, headerButtons }: WindowProps = $props();
 
 	// TODO: Evaluate if the custom resize code is actually needed if I have the onResize callback
 	// One benefit is it works without having to actually have your mouse on the resizer (re: Foundry V13)

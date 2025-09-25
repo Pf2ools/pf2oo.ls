@@ -1,6 +1,7 @@
 import type { Database } from "$lib/client/db";
 import { browser } from "$app/environment";
 import { db } from "$lib/client/db";
+import { windowManager } from "$lib/index";
 
 /* === Options === */
 export const ssr = true;
@@ -12,6 +13,7 @@ if (browser) {
 	window.pf2ools = {
 		database: db,
 		get db() { return this.database; },
+		windowManager,
 	};
 }
 
@@ -20,6 +22,7 @@ declare global {
 		pf2ools: {
 			database: Database;
 			db: Database;
+			windowManager: typeof windowManager;
 		};
 	}
 }
