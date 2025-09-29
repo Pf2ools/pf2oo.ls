@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { ContentProps } from "$lib/components/Window.svelte";
 	import { windowManager } from "$lib";
-	import { SquareDashedTopSolid } from "@lucide/svelte";
+	import { Application } from "$lib/components/Applications/appClass.svelte";
 	import { FiniteStateMachine } from "runed";
 
 	type StyleStates = "none" | "opaque" | "glass";
@@ -11,39 +10,53 @@
 		glass: { toggle: "none" }, // from glass to none
 	});
 
+	function randomScreenPosition() {
+		return {
+			x: Math.floor(Math.random() * ((globalThis?.innerWidth || 500) - 400)),
+			y: Math.floor(Math.random() * ((globalThis?.innerHeight || 400) - 300)),
+		};
+	}
+
+	let x = $state(randomScreenPosition().x);
+	let y = $state(randomScreenPosition().y);
+
 	function createWindow() {
-		windowManager.add({
-			window: {
-				headerButtons: [
-					{
-						title: "Toggle Style",
-						onclick: () => cardStyle.send("toggle"),
-						icon: SquareDashedTopSolid,
-					},
-				],
-				children,
-			},
-		});
+		new Application({ window: { children }, position: { x, y } }).render();
+		x = randomScreenPosition().x;
+		y = randomScreenPosition().y;
 	}
 </script>
 
 <button class="btn m-4 preset-filled-primary-500" onclick={createWindow}>Open a new window!</button>
 
+<div class="w-64 flex flex-col gap-2 items-center">
+	<label class="input-group grid-cols-[auto_1fr_auto]">
+		<div class="ig-cell">X Position</div>
+		<input type="number" bind:value={ x } class="ig-input m-4 w-20" placeholder="X position" />
+	</label>
+	<label class="input-group grid-cols-[auto_1fr_auto]">
+		<div class="ig-cell">Y Position</div>
+		<input type="number" bind:value={ y } class="ig-input m-4 w-20" placeholder="Y position" />
+	</label>
+</div>
+
 <p>
-	There are now {windowManager.windows.size} window(s) open.
+	There are now {windowManager.apps.size} window(s) open.
 </p>
 <ul>
-	{#each windowManager.windows as [id] (id)}
+	{#each windowManager.apps as [id] (id)}
 		<li>{id}</li>
 	{/each}
 </ul>
 
-{#snippet children({ isResizing, width, height }: ContentProps)}
+{#snippet children(app: Application)}
 	<div class="pf2e-card {cardStyle.current} p-2 space-y-2 text-justify h-full">
 		<h1 class="font-sans h4 text-center">Check these windows out!</h1>
 		<hr class="hr border-primary-300-700 shadow-primary-contrast-300-700">
 		<p>
-			This one is resizeable{#if isResizing}&nbsp;like right now! {:else}!{/if} <span class="font-mono text-sm">({width}px x {height}px)</span>
+			Size: <span class="font-mono text-sm">({app.size.width}px x {app.size.height}px)</span>
+			<br />
+			Position: <span class="font-mono text-sm">({app.position.x}px x {app.position.y}px)</span>
 			{#if cardStyle.current !== "none"}
 				And its current style is "{cardStyle.current}."
 			{/if}

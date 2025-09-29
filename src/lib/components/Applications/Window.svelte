@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Draggable, DraggableParams } from "animejs";
 	import type { Component, Snippet } from "svelte";
+	import type { Application } from "./appClass.svelte";
 	import { GripIcon } from "@lucide/svelte";
 	import { createDraggable } from "animejs";
 	import { onMount } from "svelte";
@@ -18,7 +19,7 @@
 	};
 
 	export type WindowProps = {
-		children: Snippet<[ContentProps]>;
+		children?: Snippet<[Application]>;
 		drag?: Snippet<[{ collapsed: boolean }]>;
 		draggableOptions?: DraggableParams;
 		classes?: string;
@@ -33,7 +34,6 @@
 	let target: HTMLElement | undefined;
 	let dragHandle: HTMLElement | undefined;
 
-	// svelte-ignore non_reactive_update
 	let draggable: Draggable;
 
 	let width = $state() as number;
@@ -177,7 +177,7 @@
 	{#if !collapsed}
 		<div class="h-full relative overflow-hidden" transition:slide>
 			<main class="h-full relative overflow-auto">
-				{@render children({ isResizing, width, height, draggable, collapsed, collapse, expand, toggle })}
+				{@render children?.()}
 			</main>
 			{#if resizeable}
 				<div

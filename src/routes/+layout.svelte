@@ -4,7 +4,7 @@
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
 	import { windowManager } from "$lib";
-	import WindowManager from "$lib/components/WindowManager.svelte";
+	import Applications from "$lib/components/Applications/ApplicationSingleton.svelte";
 	import { m } from "$lib/paraglide/messages";
 	import { getLocale, locales, setLocale } from "$lib/paraglide/runtime";
 	import { BookUserIcon, CodeXmlIcon, EllipsisIcon, FolderCodeIcon, HouseIcon, MenuIcon, SettingsIcon } from "@lucide/svelte";
@@ -49,7 +49,7 @@
 	}
 </script>
 
-<WindowManager {windowManager} />
+<Applications {windowManager} />
 
 <div class="overflow-hidden grid background-pattern-cube grid-rows-[auto_1fr_auto]">
 	<!-- Header -->
