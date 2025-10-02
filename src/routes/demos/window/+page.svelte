@@ -40,8 +40,13 @@
 	</label>
 </div>
 
+<span>
+	Tip: Press <code class="code">Escape</code> to close the last opened window.
+	<p></p>
+	<code class="code">Shift + Escape</code> to close all windows.
+</span>
 <p>
-	There are now {windowManager.apps.size} window(s) open.
+	There are now <code class="code">{windowManager.apps.size}</code> window(s) open.
 </p>
 <ul>
 	{#each windowManager.apps as [id] (id)}

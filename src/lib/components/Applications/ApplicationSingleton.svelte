@@ -7,11 +7,15 @@
 	// Esc = Close Window
 	// Shift + Esc = Close All Windows
 	function escapeKeyClose(event: KeyboardEvent) {
-		if (event.key === "Escape" && event.shiftKey) {
-			windowManager.closeAll();
-		}
-		else if (event.key === "Escape") {
-			windowManager.closeLast();
+		if (windowManager.apps.size === 0) return;
+		if (event.key === "Escape") {
+			if (event.shiftKey) {
+				windowManager.closeAll();
+			}
+			else if (event.key === "Escape") {
+				windowManager.closeLast();
+			}
+			event.preventDefault();
 		}
 	}
 </script>
