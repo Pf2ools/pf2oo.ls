@@ -1,4 +1,4 @@
-import type { DraggableParams } from "animejs";
+import type { Draggable, DraggableParams } from "animejs";
 import type { Component, Snippet } from "svelte";
 import { XIcon } from "@lucide/svelte";
 import { createDraggable } from "animejs";
@@ -23,14 +23,15 @@ type Buttons = { title?: string; onclick: (e: MouseEvent) => void; icon?: Compon
 
 export class Application {
 	id: string;
-	position: ApplicationProps["position"] = $state({ x: 250, y: 100 });
-	size: ApplicationProps["size"] = $state({ width: 400, height: 300 });
 
 	mounted: boolean = $state(false);
 	element: HTMLElement | null = $state(null);
 	draggableEl: HTMLElement | null = $state(null);
 	classes: string = $state("");
+	draggable: Draggable | null = $state(null);
 
+	position: ApplicationProps["position"] = $state({ x: 250, y: 100 });
+	size: ApplicationProps["size"] = $state({ width: 400, height: 300 });
 	window: ApplicationProps["window"] = $state({
 		headerButtons: [
 			{
@@ -55,12 +56,13 @@ export class Application {
 	}
 
 	onMount(el: HTMLElement, dragEl: HTMLElement, options: DraggableParams = {}) {
-		const draggable = createDraggable(el, {
+		this.draggable = createDraggable(el, {
 			trigger: dragEl,
 			container: "#main",
 			containerPadding: [12, 12, 36, 12],
 			velocityMultiplier: 0.2,
 			snap: 1,
+			cursor: { onHover: "move" },
 			onUpdate: () => {
 				// Grab translate values from transform matrix
 				const style = window.getComputedStyle(el);
@@ -81,13 +83,26 @@ export class Application {
 			this.size.height = el.offsetHeight;
 		}
 
-		draggable.x = this.position.x;
-		draggable.y = this.position.y;
+		this.draggable.x = this.position.x;
+		this.draggable.y = this.position.y;
+
+		this.draggable.animateInView();
+
+		this.mounted = true;
+		this.element = el;
+		this.draggableEl = dragEl;
 
 		// Probably not needed but might as well?
 		return () => {
-			draggable.disable();
+			if (this.draggable) {
+				this.draggable.disable();
+				this.draggable = null;
+			};
 			el?.remove();
+
+			this.mounted = false;
+			this.element = null;
+			this.draggableEl = null;
 		};
 	}
 

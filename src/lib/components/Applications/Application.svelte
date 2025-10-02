@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Application } from "./appClass.svelte";
+	import { GripIcon } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 
@@ -21,7 +22,56 @@
 	function toggle() {
 		collapsed ? expand() : collapse();
 	}
+
+	// State to manage whether we are currently resizing
+	let isResizing = $state(false);
+	let initialMouseX = $state(0);
+	let initialMouseY = $state(0);
+	let initialElemWidth = $state(0);
+	let initialElemHeight = $state(0);
+
+	// Function to handle the start of resizing
+	function startResize(e: MouseEvent) {
+		e.preventDefault();
+		isResizing = true;
+		initialMouseX = e.clientX;
+		initialMouseY = e.clientY;
+		initialElemWidth = app.element!.offsetWidth;
+		initialElemHeight = app.element!.offsetHeight;
+	}
+
+	// Function to handle mouse movement during resize
+	function duringResize(e: MouseEvent) {
+		if (!app.window.resizeable || !app.draggable) return;
+		const container = app.draggable.$scrollContainer
+			? (app.draggable.$scrollContainer as HTMLElement).getBoundingClientRect()
+			: { width: window.innerWidth, height: window.innerHeight };
+
+		if (isResizing) {
+			app.size.width = Math.max(
+				100,
+				Math.min(
+					initialElemWidth + (e.clientX - initialMouseX),
+					container.width - app.draggable.containerPadding[0],
+				),
+			);
+			app.size.height = Math.max(
+				100,
+				Math.min(
+					initialElemHeight + (e.clientY - initialMouseY),
+					container.height - app.draggable.containerPadding[0],
+				),
+			);
+		}
+	}
+
+	// Function to handle the end of resizing
+	function endResize() {
+		isResizing = false;
+	}
 </script>
+
+<svelte:window on:mousemove={ duringResize } on:mouseup={ endResize } />
 
 <div
 	bind:this={ app.element }
@@ -38,6 +88,20 @@
 			<header>
 				drag me! {collapsed ? "(closed)" : ""}
 			</header>
+			<div class="ml-auto [&>*]:hover:underline flex gap-2">
+				{#each app.window.headerButtons || [] as { title, onclick, icon: Icon }}
+					<button
+						class="flex gap-0.5 items-center"
+						{onclick}
+						ondblclick={(ev) => ev.stopPropagation()}
+					>
+						{#if Icon}
+							<Icon size={16} />
+						{/if}
+						{title}
+					</button>
+				{/each}
+			</div>
 		</section>
 	</header>
 	{#if !collapsed}
@@ -49,6 +113,15 @@
 					No content has been set!
 				{/if}
 			</main>
+			{#if app.window.resizeable}
+				<div
+					role="none"
+					class="resize-handle absolute right-px bottom-px cursor-nwse-resize"
+					onmousedown={startResize}
+				>
+					<GripIcon size="12"></GripIcon>
+				</div>
+			{/if}
 		</div>
 	{/if}
 </div>
