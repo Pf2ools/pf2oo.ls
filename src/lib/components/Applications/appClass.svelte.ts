@@ -81,7 +81,7 @@ export class Application {
 	set x(arg) {
 		if (this.draggable) {
 			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
-			this.draggable.x = Math.max(Math.min(arg, _left), _left);
+			this.draggable.x = Math.min(Math.max(arg, _left), _right);
 		};
 		this.#updateSubscribers();
 	}
@@ -89,7 +89,7 @@ export class Application {
 	set y(arg) {
 		if (this.draggable) {
 			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
-			this.draggable.y = Math.max(Math.min(arg, _top), _top);
+			this.draggable.y = Math.min(Math.max(arg, _top), _bottom);
 		};
 		this.#updateSubscribers();
 	}
@@ -124,9 +124,11 @@ export class Application {
 			...options,
 		});
 
-		// Set initial position
-		this.y = this.#y;
-		this.x = this.#x;
+		// Set position.
+		// Must be cloned as assignment will trigger onUpdate above, changing the other property.
+		const [x, y] = [this.#x, this.#y];
+		this.x = x;
+		this.y = y;
 
 		// Set size of element to class
 		if (this.size.width === undefined && this.size.height === undefined) {
