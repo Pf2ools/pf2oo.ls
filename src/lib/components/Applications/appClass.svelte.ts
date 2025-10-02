@@ -62,8 +62,7 @@ export class Application {
 	}
 
 	#subscribe;
-	// @ts-expect-error It is defined. And when it isn't its a problem.
-	#updateSubscribers: (() => void);
+	#updateSubscribers: (() => void) | undefined;
 
 	#x: number = 250;
 	#y: number = 100;
@@ -83,7 +82,7 @@ export class Application {
 			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
 			this.draggable.x = Math.min(Math.max(arg, _left), _right);
 		};
-		this.#updateSubscribers();
+		this.#updateSubscribers?.();
 	}
 
 	set y(arg) {
@@ -91,7 +90,7 @@ export class Application {
 			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
 			this.draggable.y = Math.min(Math.max(arg, _top), _bottom);
 		};
-		this.#updateSubscribers();
+		this.#updateSubscribers?.();
 	}
 
 	onMount(el: HTMLElement, dragEl: HTMLElement, options: DraggableParams = {}) {
@@ -108,7 +107,7 @@ export class Application {
 				const matrix = new DOMMatrixReadOnly(style.transform);
 				this.#x = matrix.m41;
 				this.#y = matrix.m42;
-				this.#updateSubscribers();
+				this.#updateSubscribers?.();
 			},
 			onResize: (self) => {
 				const container = (self.$container as HTMLElement).getBoundingClientRect();
