@@ -1,9 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-import { createWindowManager } from "./components/Applications/appClass.svelte";
+import { WindowManager } from "./components/Applications/appClass.svelte";
 
 // eslint-disable-next-line import/no-mutable-exports
-let windowManager = createWindowManager();
+let windowManager = new WindowManager();
 
 export { windowManager };
 
@@ -14,8 +14,8 @@ if (import.meta.hot) {
 		],
 		([appMod]) => {
 			if (appMod) {
-				windowManager = appMod.createWindowManager(windowManager.apps);
-				console.warn("Hot reloaded the window manager");
+				windowManager = new appMod.WindowManager(windowManager.apps);
+				console.warn(`Hot reloaded the window manager with ${windowManager.apps.size} apps.`);
 			}
 		},
 	);

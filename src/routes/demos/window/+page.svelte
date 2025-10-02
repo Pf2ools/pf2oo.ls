@@ -61,7 +61,7 @@
 		<p>
 			Size: <span class="font-mono text-sm">({app.size.width}px x {app.size.height}px)</span>
 			<br />
-			Position: <span class="font-mono text-sm">({app.position.x}px x {app.position.y}px)</span>
+			Position: <span class="font-mono text-sm">({app.x}px x {app.y}px)</span>
 			{#if cardStyle.current !== "none"}
 				And its current style is "{cardStyle.current}."
 			{/if}

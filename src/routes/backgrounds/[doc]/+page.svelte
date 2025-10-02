@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import { db } from "$lib/client/db.js";
+	import { Application } from "$lib/components/Applications/appClass.svelte.js";
 	import Background from "$lib/components/Background.svelte";
 	import BackgroundForm from "$lib/components/BackgroundForm.svelte";
 	import { isTruthy } from "$lib/utils.js";
-	import { EllipsisVertical } from "@lucide/svelte";
+	import { EllipsisVertical, ExternalLinkIcon } from "@lucide/svelte";
 	import { Popover, Tabs } from "@skeletonlabs/skeleton-svelte";
 	import { useQueryOne } from "@triplit/svelte";
 
@@ -33,6 +34,14 @@
 		/>
 	{/if}
 </svelte:head>
+
+{#snippet children()}
+	{#if doc}
+		<Background {doc} />
+	{:else}
+		Could not find the doc?!
+	{/if}
+{/snippet}
 
 <Tabs
 	value={group} onValueChange={(e) => (group = e.value as Tabs)}
@@ -65,11 +74,23 @@
 		>
 			Images
 		</Tabs.Control>
+		<button
+			class="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5 p-1 align-middle items-center"
+			onclick={() => {
+				// TODO: Changes on navigation, make it not do that.
+				new Application({
+					window: { children },
+					size: { width: 600, height: "min-content" },
+				}).render();
+			}}
+		>
+			<ExternalLinkIcon size={20} class="inline opacity-50 hover:opacity-100" />
+		</button>
 		<Popover
 			open={openState}
 			onOpenChange={(e) => (openState = e.open)}
 			positioning={{ placement: "bottom-end", offset: { mainAxis: 0 } }}
-			classes="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5"
+			classes="flex pf2e-card rounded-none rounded-t-base mb-0.5"
 			triggerBase="p-1 opacity-50 hover:opacity-100"
 			contentBase="pf2e-card rounded-xs p-2 px-4 text-sm drop-shadow-md"
 			arrow
@@ -86,11 +107,7 @@
 	{/snippet}
 	{#snippet content()}
 		<Tabs.Panel value="doc" classes="h-full flex flex-col gap-2 items-center">
-			{#if doc}
-				<Background {doc} />
-			{:else}
-				Could not find the doc?!
-			{/if}
+			{@render children()}
 			<button
 				class="btn preset-filled-success-100-900 btn-sm w-min"
 				onclick={() => (group = "new")}

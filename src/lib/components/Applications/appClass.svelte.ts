@@ -2,12 +2,12 @@ import type { Draggable, DraggableParams } from "animejs";
 import type { Component, Snippet } from "svelte";
 import { XIcon } from "@lucide/svelte";
 import { createDraggable } from "animejs";
-import { SvelteMap } from "svelte/reactivity";
+import { createSubscriber, SvelteMap } from "svelte/reactivity";
 
 interface ApplicationProps {
 	id?: string;
 	position: { x: number; y: number };
-	size: { width: number; height: number };
+	size: { width: number | string; height: number | string };
 	window: ContentProps;
 	classes?: string;
 }
@@ -30,7 +30,6 @@ export class Application {
 	classes: string = $state("");
 	draggable: Draggable | null = $state(null);
 
-	position: ApplicationProps["position"] = $state({ x: 250, y: 100 });
 	size: ApplicationProps["size"] = $state({ width: 400, height: 300 });
 	window: ApplicationProps["window"] = $state({
 		headerButtons: [
@@ -50,16 +49,56 @@ export class Application {
 		this.id = String(props.id || window.pf2ools.windowManager.apps.size + 1);
 		this.window.children = props.window?.children;
 		this.window.drag = props.window?.drag;
-		this.position = props.position || this.position;
+		if (props.position) {
+			this.#x = props.position.x;
+			this.#y = props.position.y;
+		}
 		this.size = props.size || this.size;
 		this.classes = props.classes || this.classes;
+
+		this.#subscribe = createSubscriber((update) => {
+			this.#updateSubscribers = update;
+		});
+	}
+
+	#subscribe;
+	// @ts-expect-error It is defined. And when it isn't its a problem.
+	#updateSubscribers: (() => void);
+
+	#x: number = 250;
+	#y: number = 100;
+
+	get x() {
+		this.#subscribe();
+		return this.#x;
+	}
+
+	get y() {
+		this.#subscribe();
+		return this.#y;
+	}
+
+	set x(arg) {
+		if (this.draggable) {
+			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
+			this.draggable.x = Math.max(Math.min(arg, _left), _left);
+		};
+		this.#updateSubscribers();
+	}
+
+	set y(arg) {
+		if (this.draggable) {
+			const [_top, _right, _bottom, _left] = this.draggable.containerBounds;
+			this.draggable.y = Math.max(Math.min(arg, _top), _top);
+		};
+		this.#updateSubscribers();
 	}
 
 	onMount(el: HTMLElement, dragEl: HTMLElement, options: DraggableParams = {}) {
 		this.draggable = createDraggable(el, {
 			trigger: dragEl,
 			container: "#main",
-			containerPadding: [12, 12, 36, 12],
+			containerPadding: [12, 12, 12, 12],
 			velocityMultiplier: 0.2,
 			snap: 1,
 			cursor: { onHover: "move" },
@@ -67,27 +106,43 @@ export class Application {
 				// Grab translate values from transform matrix
 				const style = window.getComputedStyle(el);
 				const matrix = new DOMMatrixReadOnly(style.transform);
-				this.position.x = matrix.m41;
-				this.position.y = matrix.m42;
+				this.#x = matrix.m41;
+				this.#y = matrix.m42;
+				this.#updateSubscribers();
 			},
 			onResize: (self) => {
-				const container = (self.$scrollContainer as HTMLElement).getBoundingClientRect();
-				this.size.width = Math.min(container.width - self.containerPadding[0] * 2.5, this.size.width);
-				this.size.height = Math.min(container.height - self.containerPadding[0] * 2.5, this.size.height);
+				const container = (self.$container as HTMLElement).getBoundingClientRect();
+				this.size.width = Math.min(
+					container.width - self.containerPadding[0] * 2.5,
+					Number(this.size.width) ? Number(this.size.width) : Infinity,
+				);
+				this.size.height = Math.min(
+					container.height - self.containerPadding[0] * 2.5,
+					Number(this.size.height) ? Number(this.size.height) : Infinity,
+				);
 			},
 			...options,
 		});
 
+		// Set initial position
+		this.y = this.#y;
+		this.x = this.#x;
+
+		// Set size of element to class
 		if (this.size.width === undefined && this.size.height === undefined) {
 			this.size.width = el.offsetWidth;
 			this.size.height = el.offsetHeight;
 		}
 
-		this.draggable.x = this.position.x;
-		this.draggable.y = this.position.y;
+		// Min size to draggable's boundaries
+		if (el.getBoundingClientRect().width > this.draggable.$container.getBoundingClientRect().width) {
+			this.size.width = this.draggable.$container.getBoundingClientRect().width - this.draggable.containerPadding[0] * 2.5;
+		}
+		if (el.getBoundingClientRect().height > this.draggable.$container.getBoundingClientRect().height) {
+			this.size.height = this.draggable.$container.getBoundingClientRect().height - this.draggable.containerPadding[0] * 2.5;
+		}
 
-		this.draggable.animateInView();
-
+		// Mark as mounted
 		this.mounted = true;
 		this.element = el;
 		this.draggableEl = dragEl;
@@ -104,16 +159,6 @@ export class Application {
 			this.element = null;
 			this.draggableEl = null;
 		};
-	}
-
-	setPosition(x: number, y: number) {
-		this.position.x = x;
-		this.position.y = y;
-	}
-
-	setSize(width: number, height: number) {
-		this.size.width = width;
-		this.size.height = height;
 	}
 
 	render() {
@@ -151,9 +196,4 @@ export class WindowManager {
 			this.apps.delete(lastKey);
 		}
 	}
-}
-
-export function createWindowManager() {
-	const windows = new WindowManager();
-	return windows;
 }
