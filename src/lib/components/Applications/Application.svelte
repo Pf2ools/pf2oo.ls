@@ -78,7 +78,7 @@
 	style:position="absolute"
 	style:width={ collapsed ? "16rem" : `${app.size.width}px` }
 	style:height={ collapsed ? "min-content" : `${app.size.height}px` }
-	class={app.classes}
+	class="z-1 {app.classes}"
 >
 	<header class="select-none" bind:this={ app.draggableEl } ondblclick={toggle} role="none">
 		<section

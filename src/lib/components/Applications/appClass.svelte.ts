@@ -140,6 +140,17 @@ export class WindowManager {
 	remove(id: string) {
 		this.apps.delete(id);
 	}
+
+	closeAll() {
+		this.apps.clear();
+	}
+
+	closeLast() {
+		const lastKey = Array.from(this.apps.keys()).pop();
+		if (lastKey) {
+			this.apps.delete(lastKey);
+		}
+	}
 }
 
 export function createWindowManager() {
