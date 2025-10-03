@@ -21,6 +21,7 @@
 	type Tabs = "doc" | "new";
 	let group: Tabs = $state("doc");
 	let openState = $state(false);
+	let statblockEl: HTMLElement | undefined;
 </script>
 
 <svelte:head>
@@ -34,15 +35,6 @@
 		/>
 	{/if}
 </svelte:head>
-
-{#snippet children()}
-	{#if doc}
-		<Background {doc} />
-	{:else}
-		Could not find the doc?!
-	{/if}
-{/snippet}
-
 <Tabs
 	value={group} onValueChange={(e) => (group = e.value as Tabs)}
 	listMargin="pl-0.5"
@@ -78,13 +70,15 @@
 			class="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5 p-1 align-middle items-center"
 			onclick={() => {
 				const copyDoc = $state.snapshot(doc);
+				const b = statblockEl!.getBoundingClientRect();
 				new Application({
 					props: { doc: copyDoc },
 					window: {
 						title: copyDoc.name.primary,
 						children: Background,
 					},
-					size: { width: 600, height: "min-content" },
+					size: { width: b.width, height: b.height },
+					position: { x: b.x, y: b.bottom + 2 },
 				}).render();
 			}}
 		>
@@ -111,7 +105,13 @@
 	{/snippet}
 	{#snippet content()}
 		<Tabs.Panel value="doc" classes="h-full flex flex-col gap-2 items-center">
-			{@render children()}
+			<div bind:this={ statblockEl }>
+				{#if doc}
+					<Background {doc} />
+				{:else}
+					Could not find the doc?!
+				{/if}
+			</div>
 			<button
 				class="btn preset-filled-success-100-900 btn-sm w-min"
 				onclick={() => (group = "new")}

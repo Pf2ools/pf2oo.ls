@@ -106,11 +106,18 @@
 	{#if !app.collapsed}
 		<div class="h-full relative overflow-hidden" transition:slide>
 			<main class="h-full relative overflow-auto">
-				{#if ChildComponent}
-					<ChildComponent {...app.props} />
-				{:else}
-					No content has been set!
-				{/if}
+				<svelte:boundary>
+					{#if ChildComponent}
+						<ChildComponent {...app.props} />
+					{:else}
+						No content has been set!
+					{/if}
+
+					{#snippet failed(_error, _reset)}
+						The component errored during rendering.
+						<button class="btn preset-filled" onclick={_reset}>try again?</button>
+					{/snippet}
+				</svelte:boundary>
 			</main>
 			{#if app.window.resizeable}
 				<div

@@ -38,6 +38,13 @@
 		</NavTable>
 	</div>
 	<div class="max-sm:row-span-2 overflow-hidden">
-		{@render children()}
+		<svelte:boundary>
+			{@render children()}
+
+			{#snippet failed(_error, _reset)}
+				The component errored during rendering.
+				<button class="btn preset-filled" onclick={_reset}>try again?</button>
+			{/snippet}
+		</svelte:boundary>
 	</div>
 </div>
