@@ -80,7 +80,10 @@
 				const copyDoc = $state.snapshot(doc);
 				new Application({
 					props: { doc: copyDoc },
-					window: { children: Background },
+					window: {
+						title: copyDoc.name.primary,
+						children: Background,
+					},
 					size: { width: 600, height: "min-content" },
 				}).render();
 			}}

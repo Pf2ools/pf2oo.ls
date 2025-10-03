@@ -1,5 +1,5 @@
 import type { Draggable, DraggableParams } from "animejs";
-import type { Component, Snippet } from "svelte";
+import type { Component } from "svelte";
 import { XIcon } from "@lucide/svelte";
 import { createDraggable } from "animejs";
 import { createSubscriber, SvelteMap } from "svelte/reactivity";
@@ -9,8 +9,8 @@ export interface ApplicationProps<T extends Record<string, any>> {
 	position: { x: number; y: number };
 	size: { width: number | string; height: number | string };
 	window: {
+		title: string;
 		children?: Component<T>;
-		drag?: Snippet<[{ collapsed: boolean }]>;
 		resizeable?: boolean;
 		headerButtons?: { title?: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
 	};
@@ -31,6 +31,7 @@ export class Application<T extends Record<string, any>> {
 
 	size: ApplicationProps<T>["size"] = $state({ width: 400, height: 300 });
 	window: ApplicationProps<T>["window"] = $state({
+		title: "App Window",
 		headerButtons: [
 			{
 				title: "",
@@ -47,7 +48,7 @@ export class Application<T extends Record<string, any>> {
 		}
 		this.id = String(props.id || window.pf2ools.windowManager.apps.size + 1);
 		this.window.children = props.window?.children;
-		this.window.drag = props.window?.drag;
+		this.window.title = props.window?.title ?? `App Window ${this.id}`;
 		this.props = props.props ?? {} as T;
 		if (props.position) {
 			this.#x = props.position.x;
