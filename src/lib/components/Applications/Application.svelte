@@ -83,7 +83,7 @@
 		bind:this={ app.draggableEl } ondblclick={toggle} role="none"
 		class={[
 			"select-none",
-			!app.collapsed && "group-hover:translate-0 group-hover:scale-100 translate-y-full scale-95 transition-transform duration-300",
+			!app.collapsed && "group-hover:translate-0 group-hover:scale-100 translate-y-full scale-95 transition-transform duration-300 delay-500 group-hover:delay-0",
 		]}
 	>
 		<section
