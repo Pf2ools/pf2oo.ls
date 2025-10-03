@@ -4,24 +4,21 @@ import { XIcon } from "@lucide/svelte";
 import { createDraggable } from "animejs";
 import { createSubscriber, SvelteMap } from "svelte/reactivity";
 
-interface ApplicationProps {
+export interface ApplicationProps<T extends Record<string, any>> {
 	id?: string;
 	position: { x: number; y: number };
 	size: { width: number | string; height: number | string };
-	window: ContentProps;
+	window: {
+		children?: Component<T>;
+		drag?: Snippet<[{ collapsed: boolean }]>;
+		resizeable?: boolean;
+		headerButtons?: { title?: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
+	};
 	classes?: string;
+	props?: T;
 }
 
-export interface ContentProps {
-	children?: Snippet<[Application]>;
-	drag?: Snippet<[{ collapsed: boolean }]>;
-	resizeable?: boolean;
-	headerButtons?: Buttons;
-}
-
-type Buttons = { title?: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
-
-export class Application {
+export class Application<T extends Record<string, any>> {
 	id: string;
 
 	mounted: boolean = $state(false);
@@ -30,8 +27,10 @@ export class Application {
 	classes: string = $state("");
 	draggable: Draggable | null = $state(null);
 
-	size: ApplicationProps["size"] = $state({ width: 400, height: 300 });
-	window: ApplicationProps["window"] = $state({
+	props: T = $state({} as T);
+
+	size: ApplicationProps<T>["size"] = $state({ width: 400, height: 300 });
+	window: ApplicationProps<T>["window"] = $state({
 		headerButtons: [
 			{
 				title: "",
@@ -42,13 +41,14 @@ export class Application {
 		resizeable: true,
 	});
 
-	constructor(props: Partial<ApplicationProps> = {}) {
+	constructor(props: Partial<ApplicationProps<T>> = {}) {
 		if (props.id && window.pf2ools.windowManager.apps.has(String(props.id))) {
 			throw new Error(`App with id ${props.id} already exists`);
 		}
 		this.id = String(props.id || window.pf2ools.windowManager.apps.size + 1);
 		this.window.children = props.window?.children;
 		this.window.drag = props.window?.drag;
+		this.props = props.props ?? {} as T;
 		if (props.position) {
 			this.#x = props.position.x;
 			this.#y = props.position.y;
@@ -172,13 +172,13 @@ export class Application {
 }
 
 export class WindowManager {
-	apps: SvelteMap<string, Application>;
+	apps: SvelteMap<string, Application<any>>;
 
 	constructor(apps?: WindowManager["apps"]) {
-		this.apps = apps ?? new SvelteMap<string, Application>();
+		this.apps = apps ?? new SvelteMap<string, Application<any>>();
 	}
 
-	add(app: Application) {
+	add(app: Application<any>) {
 		if (!app.id) throw new Error("App must have an id");
 		this.apps.set(app.id, app);
 	}

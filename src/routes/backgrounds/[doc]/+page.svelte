@@ -77,9 +77,9 @@
 		<button
 			class="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5 p-1 align-middle items-center"
 			onclick={() => {
-				// TODO: The {doc} of the popout changes on navigation, make it not do that.
 				new Application({
-					window: { children },
+					props: { doc },
+					window: { children: Background },
 					size: { width: 600, height: "min-content" },
 				}).render();
 			}}

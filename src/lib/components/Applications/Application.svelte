@@ -4,9 +4,10 @@
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 
-	const { app }: { app: Application } = $props();
+	const { app }: { app: Application<{}> } = $props();
 	// flex flex-col border border-gray-700 bg-gray-800 text-white shadow-lg rounded-md
 
+	const ChildComponent = app.window.children;
 	onMount(() => app.onMount(app.element!, app.draggableEl!));
 
 	let collapsed = $state(false);
@@ -107,8 +108,8 @@
 	{#if !collapsed}
 		<div class="h-full relative overflow-hidden" transition:slide>
 			<main class="h-full relative overflow-auto">
-				{#if app.window.children}
-					{@render app.window.children(app)}
+				{#if ChildComponent}
+					<ChildComponent {...app.props} />
 				{:else}
 					No content has been set!
 				{/if}
