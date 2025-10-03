@@ -77,7 +77,7 @@
 		<button
 			class="ml-auto flex pf2e-card rounded-none rounded-t-base mb-0.5 p-1 align-middle items-center"
 			onclick={() => {
-				const copyDoc = doc;
+				const copyDoc = structuredClone(doc);
 				new Application({
 					props: { doc: copyDoc },
 					window: { children: Background },
