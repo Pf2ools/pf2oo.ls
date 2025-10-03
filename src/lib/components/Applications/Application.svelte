@@ -10,18 +10,16 @@
 	const ChildComponent = app.window.children;
 	onMount(() => app.onMount(app.element!, app.draggableEl!));
 
-	let collapsed = $state(false);
-
 	async function collapse() {
-		collapsed = true;
+		app.collapsed = true;
 	}
 
 	function expand() {
-		collapsed = false;
+		app.collapsed = false;
 	}
 
 	function toggle() {
-		collapsed ? expand() : collapse();
+		app.collapsed ? expand() : collapse();
 	}
 
 	// State to manage whether we are currently resizing
@@ -77,8 +75,8 @@
 <div
 	bind:this={ app.element }
 	style:position="absolute"
-	style:width={ collapsed ? "16rem" : `${app.size.width}px` }
-	style:height={ collapsed ? "min-content" : `${app.size.height}px` }
+	style:width={ app.collapsed ? "16rem" : `${app.size.width}px` }
+	style:height={ app.collapsed ? "min-content" : `${app.size.height}px` }
 	class="z-1 {app.classes}"
 >
 	<header class="select-none" bind:this={ app.draggableEl } ondblclick={toggle} role="none">
@@ -87,7 +85,7 @@
 			class="w-full bg-gray-500 px-2 flex gap-2"
 		>
 			<header>
-				drag me! {collapsed ? "(closed)" : ""}
+				{app.window.title}
 			</header>
 			<div class="ml-auto [&>*]:hover:underline flex gap-2">
 				{#each app.window.headerButtons || [] as { title, onclick, icon: Icon }}
@@ -105,7 +103,7 @@
 			</div>
 		</section>
 	</header>
-	{#if !collapsed}
+	{#if !app.collapsed}
 		<div class="h-full relative overflow-hidden" transition:slide>
 			<main class="h-full relative overflow-auto">
 				{#if ChildComponent}

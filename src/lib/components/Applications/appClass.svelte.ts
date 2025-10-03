@@ -9,7 +9,7 @@ export interface ApplicationProps<T extends Record<string, any>> {
 	position: { x: number; y: number };
 	size: { width: number | string; height: number | string };
 	window: {
-		title: string;
+		title?: string;
 		children?: Component<T>;
 		resizeable?: boolean;
 		headerButtons?: { title?: string; onclick: (e: MouseEvent) => void; icon?: Component }[];
@@ -18,7 +18,7 @@ export interface ApplicationProps<T extends Record<string, any>> {
 	props?: T;
 }
 
-export class Application<T extends Record<string, any>> {
+export class Application<T extends Record<string, any> = Record<string, any>> {
 	id: string;
 
 	mounted: boolean = $state(false);
@@ -26,6 +26,7 @@ export class Application<T extends Record<string, any>> {
 	draggableEl: HTMLElement | null = $state(null);
 	classes: string = $state("");
 	draggable: Draggable | null = $state(null);
+	collapsed = $state(false);
 
 	props: T = $state({} as T);
 
@@ -49,7 +50,8 @@ export class Application<T extends Record<string, any>> {
 		this.id = String(props.id || window.pf2ools.windowManager.apps.size + 1);
 		this.window.children = props.window?.children;
 		this.window.title = props.window?.title ?? `App Window ${this.id}`;
-		this.props = props.props ?? {} as T;
+		// TODO: Figure out why this is wrong
+		this.props = { app: this, ...props.props } as unknown as T;
 		if (props.position) {
 			this.#x = props.position.x;
 			this.#y = props.position.y;
@@ -111,14 +113,17 @@ export class Application<T extends Record<string, any>> {
 				this.#updateSubscribers?.();
 			},
 			onResize: (self) => {
+				if (this.collapsed) return;
 				const container = (self.$container as HTMLElement).getBoundingClientRect();
+				const element = (self.$target as HTMLElement).getBoundingClientRect();
+
 				this.size.width = Math.min(
 					container.width - self.containerPadding[0] * 2.5,
-					Number(this.size.width) ? Number(this.size.width) : Infinity,
+					element.width,
 				);
 				this.size.height = Math.min(
 					container.height - self.containerPadding[0] * 2.5,
-					Number(this.size.height) ? Number(this.size.height) : Infinity,
+					element.height,
 				);
 			},
 			...options,
