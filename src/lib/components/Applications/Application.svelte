@@ -77,20 +77,30 @@
 	style:position="absolute"
 	style:width={ app.collapsed ? "16rem" : `${app.size.width}px` }
 	style:height={ app.collapsed ? "min-content" : `${app.size.height}px` }
-	class="z-1 {app.classes}"
+	class="z-1 group isolate {app.classes}"
 >
-	<header class="select-none" bind:this={ app.draggableEl } ondblclick={toggle} role="none">
+	<header
+		bind:this={ app.draggableEl } ondblclick={toggle} role="none"
+		class={[
+			"select-none",
+			!app.collapsed && "group-hover:translate-0 group-hover:scale-100 translate-y-full scale-95 transition-transform duration-300",
+		]}
+	>
 		<section
 			role="none"
-			class="w-full bg-gray-500 px-2 flex gap-2"
+			class="w-full bg-gray-500/80 px-2 flex gap-2"
 		>
 			<header>
 				{app.window.title}
 			</header>
 			<div class="ml-auto [&>*]:hover:underline flex gap-2">
-				{#each app.window.headerButtons || [] as { title, onclick, icon: Icon }}
+				{#each app.window.headerButtons || [] as { title, class: classes, onclick, icon: Icon }}
 					<button
-						class="flex gap-0.5 items-center"
+						class="
+							flex gap-0.5 items-center
+							hover:text-primary-500 hover:drop-shadow-lg drop-shadow-primary-500
+							{classes}
+						"
 						{onclick}
 						ondblclick={(ev) => ev.stopPropagation()}
 					>

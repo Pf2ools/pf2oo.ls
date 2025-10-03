@@ -18,6 +18,7 @@ export interface ApplicationProps<T extends Record<string, any> = Record<string,
 		resizeable?: boolean;
 		headerButtons?: {
 			title?: string;
+			class?: string;
 			onclick: (e: MouseEvent) => void;
 			icon?: Component;
 		}[];
@@ -48,6 +49,7 @@ export class Application<T extends Record<string, any> = Record<string, any>> {
 		headerButtons: [
 			{
 				title: "",
+				class: "",
 				onclick: () => this.close(),
 				icon: XIcon,
 			},
