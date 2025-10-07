@@ -71,24 +71,22 @@ export class Application<T extends Record<string, any> = Record<string, any>> {
 		// TODO: Figure out why this is wrong
 		this.props = { app: this, ...(props.props || {}) } as unknown as T;
 
-		if (props.position) {
-			this.#x = props.position.x;
-			this.#y = props.position.y;
-		}
-
+		this.#position = props.position ?? this.#position;
 		this.size = props.size ?? this.size;
 		this.classes = props.classes ?? this.classes;
 	}
 
-	#x: number = $state(250);
-	#y: number = $state(100);
+	#position = {
+		x: $state(250),
+		y: $state(100),
+	};
 
 	get x() {
-		return this.#x;
+		return this.#position.x;
 	}
 
 	get y() {
-		return this.#y;
+		return this.#position.y;
 	}
 
 	set x(arg) {
@@ -117,8 +115,8 @@ export class Application<T extends Record<string, any> = Record<string, any>> {
 				// Grab translate values from transform matrix
 				const style = window.getComputedStyle(el);
 				const matrix = new DOMMatrixReadOnly(style.transform);
-				this.#x = matrix.m41;
-				this.#y = matrix.m42;
+				this.#position.x = matrix.m41;
+				this.#position.y = matrix.m42;
 			},
 			onResize: (self) => {
 				if (this.collapsed) return;
@@ -134,7 +132,7 @@ export class Application<T extends Record<string, any> = Record<string, any>> {
 
 		// Set position.
 		// Must be cloned as assignment will trigger onUpdate above, changing the other property.
-		const [x, y] = [this.#x, this.#y];
+		const [x, y] = [this.#position.x, this.#position.y];
 		this.x = x;
 		this.y = y;
 
@@ -179,6 +177,12 @@ export class Application<T extends Record<string, any> = Record<string, any>> {
 		window.pf2ools.windowManager.add(this);
 	}
 
+	_restart() {
+		this.close();
+		const app = new Application(this);
+		app.render();
+	}
+
 	close() {
 		window.pf2ools.windowManager.remove(this.id);
 	}
@@ -209,5 +213,9 @@ export class WindowManager {
 		if (lastKey) {
 			this.apps.delete(lastKey);
 		}
+	}
+
+	_restartAll() {
+		this.apps.forEach((x) => x._restart());
 	}
 }

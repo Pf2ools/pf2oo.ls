@@ -15,6 +15,7 @@ if (import.meta.hot) {
 		([appMod]) => {
 			if (appMod) {
 				windowManager = new appMod.WindowManager(windowManager.apps);
+				windowManager._restartAll();
 				console.warn(`Hot reloaded the window manager with ${windowManager.apps.size} apps.`);
 			}
 		},
